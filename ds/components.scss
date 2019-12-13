@@ -1,0 +1,100 @@
+@import "tokens.scss";
+
+/*======== Background ================*/
+
+.ds.background-app{
+   background: $color-ui-background;
+}
+/*======== Button ================*/
+
+.ds.button-primary{
+	background: $color-brand-primary;
+	color: $color-ui-text-inverse;
+	font-size: $font-size-sm;
+	padding: $spacing-squish-sm;
+	border-radius: $border-radius-xs;
+	border-width: $border-width-medium;
+	border-color: $color-brand-primary;
+}
+
+.ds.button-secondary{
+	background: transparent;
+	color: $color-brand-primary;
+	font-size: $font-size-sm;
+	border-radius: $border-radius-xs;
+	border-width: $border-width-medium;
+	border-color: $color-brand-primary;
+	padding: $spacing-squish-sm;
+}
+
+.ds.button-primary:hover{
+	/*opacity: $opacity-intense;*/
+   background: $color-brand-secondary;
+   border-color: $color-brand-secondary;
+	cursor: pointer;
+}
+
+.ds.button-secondary:hover{
+	border-color: $color-brand-secondary;
+	color: $color-brand-secondary;
+	cursor: pointer;
+}
+
+/*======== Head ================*/
+
+.ds.head-big{
+	color: $color-brand-primary;
+	font-size: $font-size-lg;
+   margin-top: $spacing-stack-xxxs;
+   margin-bottom: $spacing-stack-xs;
+}
+
+.ds.head-big.inverse{
+	color: $color-brand-secondary;
+}
+
+.ds.head-medium{
+	color: $color-ui-text;
+	font-size: $font-size-md;
+   margin-top: $spacing-stack-xxxs;
+   margin-bottom: $spacing-stack-xs;
+}
+
+.ds.head-medium.inverse{
+	color: $color-ui-text-inverse;
+}
+
+/*======== Paragraph ================*/
+
+.ds.paragraph-big{
+	color: $color-ui-text;
+	line-height: $line-height-md;
+}
+
+.ds.paragraph-small{
+	color: $color-ui-text;
+	line-height: $line-height-sm;
+}
+
+/*======== Content ================*/
+
+.ds.content{
+   padding: $spacing-inset-sm;
+   font-size: $font-size-sm;
+}
+
+
+/*======== Utils ================*/
+
+.ds.center{
+   text-align: center;
+}
+
+.ds.image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  max-height: 300px;
+  width: 100%;
+  background-color: #000;
+}

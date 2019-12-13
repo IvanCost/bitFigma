@@ -1,0 +1,104 @@
+/*=========== Colors Palletes =============*/
+/*=========== Font Families =============*/
+/*=========== Font Sizes =============*/
+/*=========== Border Width =============*/
+/*=========== Border Radius =============*/
+/*=========== Opacities =============*/
+/*=========== Insets =============*/
+/*=========== Squishs =============*/
+/*=========== Line Height =============*/
+/*=========== Spacing stack =============*/
+/*======== Background ================*/
+.ds.background-app {
+  background: #FFFFFF;
+}
+
+/*======== Button ================*/
+.ds.button-primary {
+  background: #C5D291;
+  color: #F6F6F6;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  border-width: 2px;
+  border-color: #C5D291;
+}
+
+.ds.button-secondary {
+  background: transparent;
+  color: #C5D291;
+  font-size: 16px;
+  border-radius: 4px;
+  border-width: 2px;
+  border-color: #C5D291;
+  padding: 12px 24px;
+}
+
+.ds.button-primary:hover {
+  /*opacity: $opacity-intense;*/
+  background: #242523;
+  border-color: #242523;
+  cursor: pointer;
+}
+
+.ds.button-secondary:hover {
+  border-color: #242523;
+  color: #242523;
+  cursor: pointer;
+}
+
+/*======== Head ================*/
+.ds.head-big {
+  color: #C5D291;
+  font-size: 32px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.ds.head-big.inverse {
+  color: #242523;
+}
+
+.ds.head-medium {
+  color: #2E322C;
+  font-size: 24px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+}
+
+.ds.head-medium.inverse {
+  color: #F6F6F6;
+}
+
+/*======== Paragraph ================*/
+.ds.paragraph-big {
+  color: #2E322C;
+  line-height: 35px;
+}
+
+.ds.paragraph-small {
+  color: #2E322C;
+  line-height: 26px;
+}
+
+/*======== Content ================*/
+.ds.content {
+  padding: 16px;
+  font-size: 16px;
+}
+
+/*======== Utils ================*/
+.ds.center {
+  text-align: center;
+}
+
+.ds.image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  max-height: 300px;
+  width: 100%;
+  background-color: #000;
+}
+
+/*# sourceMappingURL=components.css.map */

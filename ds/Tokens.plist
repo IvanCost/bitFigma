@@ -1,0 +1,170 @@
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+			<plist version="1.0">
+			<dict>
+				<key>Pallete</key>
+				<dict>
+				<key>color-brand-primary</key>
+<string>#FF0F3A</string>
+		<key>color-brand-secondary</key>
+<string>#9EFC55</string>
+		<key>color-support-success</key>
+<string>#73E87F</string>
+		<key>color-support-alert</key>
+<string>#E4EF62</string>
+		<key>color-support-error</key>
+<string>#DD1E41</string>
+		<key>color-support-info</key>
+<string>#75C5FF</string>
+		<key>color-ui-background</key>
+<string>#EAE7E6</string>
+		<key>color-ui-title</key>
+<string>#7C7979</string>
+		<key>color-ui-subtitle</key>
+<string>#5F5656</string>
+		<key>color-ui-text</key>
+<string>#4F3B3B</string>
+		<key>color-ui-text-inverse</key>
+<string>#F6F6F6</string>
+		<key>color-ui-background-inverse</key>
+<string>#605D5D</string>
+		<key>color-ui-panel</key>
+<string>#F8F8F8</string>
+
+				</dict>
+				<key>FontFamily</key>
+				<dict>
+				<key>font-family-secondary</key>
+<string>Harmattan</string>
+		<key>font-family-primary</key>
+<string>IBM Plex Sans</string>
+
+				</dict>
+				<key>FontSize</key>
+				<dict>
+				<key>font-size-xs</key>
+<string>12</string>
+		<key>font-size-sm</key>
+<string>16</string>
+		<key>font-size-md</key>
+<string>24</string>
+		<key>font-size-lg</key>
+<string>32</string>
+		<key>font-size-xl</key>
+<string>40</string>
+		<key>font-size-xxl</key>
+<string>48</string>
+
+				</dict>
+				<key>BorderWidth</key>
+				<dict>
+				<key>border-width-thin</key>
+<string>1.0px</string>
+		<key>border-width-medium</key>
+<string>2.0px</string>
+		<key>border-width-thick</key>
+<string>4.0px</string>
+		<key>border-width-none</key>
+<string>0.0px</string>
+
+				</dict>
+				<key>BorderRadius</key>
+				<dict>
+				<key>border-radius-xs</key>
+<string>4px</string>
+		<key>border-radius-sm</key>
+<string>8px</string>
+		<key>border-radius-md</key>
+<string>16px</string>
+		<key>border-radius-pill</key>
+<string>500px</string>
+		<key>border-radius-circle</key>
+<string>50%</string>
+		<key>border-radius-none</key>
+<string>0px</string>
+
+				</dict>
+				<key>Opacity</key>
+				<dict>
+				<key>opacity-semi-transparent</key>
+<string>0.20</string>
+		<key>opacity-medium</key>
+<string>0.40</string>
+		<key>opacity-intense</key>
+<string>0.60</string>
+		<key>opacity-semi-opaque</key>
+<string>0.80</string>
+
+				</dict>
+				<key>SpacingInset</key>
+				<dict>
+				<key>spacing-inset-sm</key>
+<string>16px</string>
+		<key>spacing-inset-xxs</key>
+<string>4px</string>
+		<key>spacing-inset-xs</key>
+<string>8px</string>
+		<key>spacing-inset-md</key>
+<string>28px</string>
+
+				</dict>
+				<key>SpacingSquish</key>
+				<dict>
+				<key>spacing-squish-xs</key>
+<string>8px 16px</string>
+		<key>spacing-squish-sm</key>
+<string>12px 24px</string>
+		<key>spacing-squish-md</key>
+<string>16px 32px</string>
+
+				</dict>
+				<key>LineHeight</key>
+				<dict>
+				<key>line-height-sm</key>
+<string>32px</string>
+		<key>line-height-md</key>
+<string>30px</string>
+		<key>line-height-lg</key>
+<string>35px</string>
+		<key>line-height-xlg</key>
+<string>40px</string>
+
+				</dict>
+				<key>SpacingStack</key>
+				<dict>
+				<key>spacing-stack-xxxs</key>
+<string>4px</string>
+		<key>spacing-stack-xxs</key>
+<string>8px</string>
+		<key>spacing-stack-xs</key>
+<string>16px</string>
+		<key>spacing-stack-sm</key>
+<string>24px</string>
+		<key>spacing-stack-md</key>
+<string>32px</string>
+		<key>spacing-stack-lg</key>
+<string>40px</string>
+		<key>spacing-stack-xl</key>
+<string>64px</string>
+
+				</dict>
+				<key>SpacingInline</key>
+				<dict>
+				<key>spacing-inline-xxxs</key>
+<string>4px</string>
+		<key>spacing-inline-xxs</key>
+<string>8px</string>
+		<key>spacing-inline-xs</key>
+<string>16px</string>
+		<key>spacing-inline-sm</key>
+<string>24px</string>
+		<key>spacing-inline-md</key>
+<string>32px</string>
+		<key>spacing-inline-lg</key>
+<string>40px</string>
+
+				</dict>
+			</dict>
+		</plist>
+		

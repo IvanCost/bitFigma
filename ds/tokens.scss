@@ -1,0 +1,97 @@
+/*=========== Colors Palletes =============*/
+
+$color-brand-primary:#C5D291;
+$color-brand-secondary:#242523;
+$color-support-success:#73E87F;
+$color-support-alert:#E4EF62;
+$color-support-error:#DD1E41;
+$color-support-info:#75C5FF;
+$color-ui-background:#FFFFFF;
+$color-ui-title:#7C7979;
+$color-ui-subtitle:#5F5656;
+$color-ui-text:#2E322C;
+$color-ui-text-inverse:#F6F6F6;
+$color-ui-background-inverse:#605D5D;
+$color-ui-panel:#F7DADA;
+
+
+/*=========== Font Families =============*/
+
+$font-family-secondary:Harmattan;
+$font-family-primary:IBM Plex Sans;
+
+
+/*=========== Font Sizes =============*/
+
+$font-size-xs:12px;
+$font-size-sm:16px;
+$font-size-md:24px;
+$font-size-lg:32px;
+$font-size-xl:40px;
+$font-size-xxl:48px;
+
+
+/*=========== Border Width =============*/
+
+$border-width-thin:1.0px;
+$border-width-medium:2.0px;
+$border-width-thick:4.0px;
+$border-width-none:0.0px;
+
+
+/*=========== Border Radius =============*/
+
+$border-radius-xs:4px;
+$border-radius-sm:8px;
+$border-radius-md:16px;
+$border-radius-pill:500px;
+$border-radius-circle:50%;
+$border-radius-none:0px;
+
+
+/*=========== Opacities =============*/
+
+$opacity-semi-transparent:0.20;
+$opacity-medium:0.40;
+$opacity-intense:0.60;
+$opacity-semi-opaque:0.80;
+
+
+/*=========== Insets =============*/
+
+$spacing-inset-sm:16px;
+$spacing-inset-xxs:4px;
+$spacing-inset-xs:8px;
+$spacing-inset-md:28px;
+
+
+/*=========== Squishs =============*/
+
+$spacing-squish-xs:8px 16px;
+$spacing-squish-sm:12px 24px;
+$spacing-squish-md:16px 32px;
+
+
+/*=========== Line Height =============*/
+
+$line-height-sm:26px;
+$line-height-md:35px;
+$line-height-lg:40px;
+$line-height-xlg:45px;
+
+
+/*=========== Spacing stack =============*/
+
+$spacing-stack-xxxs:4px;
+$spacing-stack-xxs:8px;
+$spacing-stack-xs:16px;
+$spacing-stack-sm:24px;
+$spacing-stack-md:32px;
+$spacing-stack-lg:40px;
+$spacing-stack-xl:64px;
+$spacing-inline-xxxs:4px;
+$spacing-inline-xxs:8px;
+$spacing-inline-xs:16px;
+$spacing-inline-sm:24px;
+$spacing-inline-md:32px;
+$spacing-inline-lg:40px;
