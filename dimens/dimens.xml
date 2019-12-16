@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources> 
+
+<dimen name = "spacing_xxxs">2px</dimen>;
+<dimen name = "spacing_xxs">4px</dimen>;
+<dimen name = "spacing_xs">8px</dimen>;
+<dimen name = "spacing_s">12px</dimen>;
+<dimen name = "spacing_m">16px</dimen>;
+<dimen name = "spacing_l">24px</dimen>;
+<dimen name = "spacing_xl">32px</dimen>;
+<dimen name = "spacing_xxl">40px</dimen>;
+<dimen name = "spacing_xxxl">48px</dimen>;
+<dimen name = "border_radius_pill">500px</dimen>;
+<dimen name = "border_radius_circle">50%</dimen>;
+<dimen name = "border_radius_md">16px</dimen>;
+<dimen name = "border_radius_sm">8px</dimen>;
+<dimen name = "border_radius_xs">4px</dimen>;
+<dimen name = "border_radius_none">0</dimen>;
+<dimen name = "border_width_none">0</dimen>;
+<dimen name = "border_width_thin">1px</dimen>;
+<dimen name = "border_width_medium">2px</dimen>;
+<dimen name = "border_width_thick">4px</dimen>;
+</resources>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources> 
+
+<style name = "button_secondary_default">
+<item name = "android:background">@drawable/button_secondary_default</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "button_secondary_disabled">
+<item name = "android:background">@drawable/button_secondary_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "button_primary_default">
+<item name = "android:background">@drawable/button_primary_default</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "button_primary_disabled">
+<item name = "android:background">@drawable/button_primary_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "button_alternate_default">
+<item name = "android:background">@drawable/button_alternate_default</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "button_secondary_hover">
+<item name = "android:background">@drawable/button_secondary_hover</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "button_primary_hover">
+<item name = "android:background">@drawable/button_primary_hover</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "button_alternate_hover">
+<item name = "android:background">@drawable/button_alternate_hover</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "button_alternate_disabled">
+<item name = "android:background">@drawable/button_alternate_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "button_alternate_disabled">
+<item name = "android:background">@drawable/button_alternate_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">21dp</item>
+<item name = "android:textColor">#dde2e5</item>
+</style>
+
+<style name = "button_alternate_disabled">
+<item name = "android:background">@drawable/button_alternate_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">21dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "button_alternate_disabled">
+<item name = "android:background">@drawable/button_alternate_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">21dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "button_alternate_disabled">
+<item name = "android:background">@drawable/button_alternate_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">21dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "button_alternate_disabled">
+<item name = "android:background">@drawable/button_alternate_disabled</item>
+<item name = "android:layout_height">48dp</item>
+<item name = "android:layout_width">182dp</item>
+<item name = "android:radius">8dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">21dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "checkbox_disabled">
+<item name = "android:background">@drawable/checkbox_disabled</item>
+<item name = "android:layout_height">28dp</item>
+<item name = "android:layout_width">28dp</item>
+<item name = "android:radius">4dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#dde2e5</item>
+</style>
+
+<style name = "toggle_on">
+<item name = "android:background">@drawable/toggle_on</item>
+<item name = "android:layout_height">24dp</item>
+<item name = "android:layout_width">24dp</item>
+<item name = "android:radius">16dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "toggle_disabled">
+<item name = "android:background">@drawable/toggle_disabled</item>
+<item name = "android:layout_height">24dp</item>
+<item name = "android:layout_width">24dp</item>
+<item name = "android:radius">16dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "toggle_off">
+<item name = "android:background">@drawable/toggle_off</item>
+<item name = "android:layout_height">24dp</item>
+<item name = "android:layout_width">24dp</item>
+<item name = "android:radius">16dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "tooltip">
+<item name = "android:background">@drawable/tooltip</item>
+<item name = "android:layout_height">45dp</item>
+<item name = "android:layout_width">129dp</item>
+<item name = "android:radius">10dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#dde2e5</item>
+</style>
+
+<style name = "tag_primary">
+<item name = "android:background">@drawable/tag_primary</item>
+<item name = "android:layout_height">32dp</item>
+<item name = "android:layout_width">81dp</item>
+<item name = "android:radius">200dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">12dp</item>
+<item name = "android:textColor">#212429</item>
+</style>
+
+<style name = "tag_secondary">
+<item name = "android:background">@drawable/tag_secondary</item>
+<item name = "android:layout_height">32dp</item>
+<item name = "android:layout_width">94dp</item>
+<item name = "android:radius">200dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">12dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "tag_tertiary">
+<item name = "android:background">@drawable/tag_tertiary</item>
+<item name = "android:layout_height">32dp</item>
+<item name = "android:layout_width">100dp</item>
+<item name = "android:radius">200dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">12dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "tag_tertiary">
+<item name = "android:background">@drawable/tag_tertiary</item>
+<item name = "android:layout_height">32dp</item>
+<item name = "android:layout_width">100dp</item>
+<item name = "android:radius">200dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">12dp</item>
+<item name = "android:textColor">#ffffff</item>
+</style>
+
+<style name = "tag_alternate">
+<item name = "android:background">@drawable/tag_alternate</item>
+<item name = "android:layout_height">32dp</item>
+<item name = "android:layout_width">107dp</item>
+<item name = "android:radius">200dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">12dp</item>
+<item name = "android:textColor">#4263eb</item>
+</style>
+
+<style name = "checkbox_checked">
+<item name = "android:background">@drawable/checkbox_checked</item>
+<item name = "android:layout_height">28dp</item>
+<item name = "android:layout_width">28dp</item>
+<item name = "android:radius">4dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "checkbox_default">
+<item name = "android:background">@drawable/checkbox_default</item>
+<item name = "android:layout_height">28dp</item>
+<item name = "android:layout_width">28dp</item>
+<item name = "android:radius">4dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+<style name = "checkbox_default">
+<item name = "android:background">@drawable/checkbox_default</item>
+<item name = "android:layout_height">28dp</item>
+<item name = "android:layout_width">28dp</item>
+<item name = "android:radius">4dp</item>
+<item name = "android:fontFamily">Roboto</item>
+<item name = "android:textSize">16dp</item>
+<item name = "android:textColor">#495057</item>
+</style>
+
+
+
+</resources>

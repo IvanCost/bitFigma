@@ -11,6 +11,7 @@ class ParseDS:
 	colors = []
 	borderWeights = []
 	borderRadius = []
+	borders = []
 	shadows = []
 	fontSizes = []
 	fontFamilies = []
@@ -24,6 +25,7 @@ class ParseDS:
 	imagens = []
 	componentes = []
 	dimensoes = []
+	spacings = []
 
 	print("-------------------------------------------")
 	print("Escolha um sistema:\n\n")
@@ -340,6 +342,7 @@ class ParseDS:
 		palletes = parse.getPalletes()
 		path = "colors"
 		file_name = "colors.xml"
+		file_scss = "colors.scss"
 		try:
 			if not os.path.exists(path):
 				os.mkdir(path)
@@ -349,20 +352,26 @@ class ParseDS:
 			print ("Successfully created the directory %s " % path)
 		
 		f = open(os.path.join(path, file_name),"w+")
+		g = open(os.path.join(path, file_scss),"w+")
+
 		f.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
 		f.write("<resources> \n\n")
 		for color in palletes:
 			arr = color.split("=")
-			className = arr[0].strip().replace(".","_").replace("-", "_").replace("generic", "").replace("specific", "").replace("colors_", "").lower()
+			className = arr[0].strip().replace(".","_").replace("-", "_").replace("generic", "").replace("specific", "").replace("colors_", "").lower().replace(" ", "_")
 			f.write("<color name = " + "\"" + className +"\"" + ">" + arr[1].strip() + "</color>"";\n")
+			g.write("$" + className + ":" + arr[1] + ";" + "\n")
+
 		f.write("\n\n</resources>")
 		f.close()
+		g.close()
 	
 
 		#fonts
 		fontFamilies = parse.getFontFamilies()
 		path = "fonts"
 		arquivo = "fonts.xml"
+		file_scss = "fonts.scss"
 		try:
 			if not os.path.exists(path):
 				os.mkdir(path)
@@ -372,6 +381,9 @@ class ParseDS:
 			print ("Successfully created the directory %s " % path)
 		
 		g = open(os.path.join(path, arquivo),"w+")
+		h = open(os.path.join(path, file_scss),"w+")
+
+
 		g.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
 		g.write("<font-family xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ "\n\n")
 
@@ -379,6 +391,8 @@ class ParseDS:
 			arr = family.split("=")
 
 			#arquivo geral de fontes
+
+			#android
 			g.write("<font\n")
 			g.write("android:font=" + "\"" + arr[2] + "\"" + "/>" + "\n")
 
@@ -386,13 +400,31 @@ class ParseDS:
 			file_name = className + ".ttf"
 			f = open(os.path.join(path, file_name),"w+")
 			f.write(arr[0] + arr[1]+ arr[2])
+			
+			#web
+			h.write("@font_face {\n")
+			h.write("  font-family: " + className + "\n")
+			h.write("  src: url(path_da_font);\n")
+			h.write("  font-weight:" + arr[4] +";\n")
+			h.write("}\n\n")
+
+			h.write("." + arr[0] + "{" + "\n")
+			h.write("  font-family: " + className + "\n")
+			h.write("  font-weight:" + arr[4] +";\n")
+			h.write("  font-size:" + arr[3].split(".")[0] + "px" +";\n")
+			h.write("  line-height:" + arr[5].split(".")[0] + "px" +";\n")
+			h.write("}\n\n")
+
 			f.close()
 		g.write("</font-family>")
+		h.close()
 	
 
 		#dimens
 		path = "dimens"
 		file_name = "dimens.xml"
+		file_scss = "spacing.scss"
+		file_scss_borders = "borders.scss"
 		try:
 			if not os.path.exists(path):
 				os.mkdir(path)
@@ -402,17 +434,35 @@ class ParseDS:
 			print ("Successfully created the directory %s " % path)
 		
 		f = open(os.path.join(path, file_name),"w+")
+		g = open(os.path.join(path, file_scss),"w+")
+		h = open(os.path.join(path, file_scss_borders),"w+")
 		f.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
 		f.write("<resources> \n\n")		
 
+		#android
 		dimensoes = parse.getDimensoes()
 		for dimens in dimensoes:
 			arr = dimens.split("=")
 			className = arr[0].strip().replace(".","-").replace("-", "_").lower()
-			f.write("<dimen name = " + "\"" + className +"\"" + ">" + str(int(float(arr[1].strip()))) + "dp" + "</dimen>"";\n")
+			f.write("<dimen name = " + "\"" + className +"\"" + ">" + arr[1] + "</dimen>"";\n")
+		
+		#web
+		bordersDimens = parse.getBorders()
+		for borders in bordersDimens:
+			arr = borders.split("=")
+			className = arr[0].strip().replace(".","-").replace("-", "_").lower()
+			h.write("$" + className + ":" + arr[1] + ";" +  "\n")
+
+		spacingsValues = parse.getSpacings()
+		for spacing in spacingsValues:
+			arr = spacing.split("=")
+			className = arr[0].strip().replace(".","-").replace("-", "_").lower()
+			g.write("$" + className + ":" + arr[1] + ";" +  "\n")
 
 		f.write("</resources>")
 		f.close()
+		g.close()
+		h.close()
 	
 
 		#oldDimens
@@ -474,7 +524,7 @@ class ParseDS:
 		f.close()
 	
 
-		#styles
+		#whatever
 		path = "whatever"
 		file_name = "whatever.xml"
 		try:
@@ -820,9 +870,12 @@ class ParseDS:
 					if "style" in obj:
 						style = obj["style"]
 						font = style["fontFamily"]
+						fontWeight = style["fontWeight"]
+						fontSize = style["fontSize"]
 						nomeDaFonte = obj["name"]
 						conteudoFonte = obj["characters"]
-						abc.fontFamilies.append("Font.Family." + nomeDaFonte + "=" + conteudoFonte + "=" + font) 
+						lineHeight = style["lineHeightPx"]
+						abc.fontFamilies.append(nomeDaFonte + "=" + conteudoFonte + "=" + font + "=" + str(fontSize) + "=" + str(fontWeight) + "=" + str(lineHeight)) 
 				else:
 					if obj["type"].lower == "group":
 						medida = obj["name"]
@@ -928,82 +981,6 @@ class ParseDS:
 					abc.lineHeights.append("Line.Height." + item)
 							
 
-	def detectSpacing(abc,frame):
-		if frame["name"].lower() == "spacing":
-			
-			for category in frame["children"]:
-				if category["name"].lower() == "inset":
-					
-					for group in category["children"]:
-						
-						if group["type"].lower() == "group":
-							
-							item = ""
-
-							for obj in group["children"]:
-
-								if obj["type"].lower() == "rectangle" and obj["name"].lower() != "rectangle":
-									if item == "":
-										item = obj["name"]
-									else:
-										item = obj["name"] + item
-
-								if obj["type"].lower() == "text":
-									if "@" in obj["name"]:
-										px = obj["name"].replace("@","")
-										item = item + " = " + str(px) + "px"
-
-							abc.insets.append("Spacing.Inset." + item)
-				
-
-				elif category["name"].lower() == "squish":
-					
-					for group in category["children"]:
-						
-						if group["type"].lower() == "group":
-							
-							item = ""
-
-							for obj in group["children"]:
-
-								if obj["type"].lower() == "rectangle" and obj["name"].lower() != "rectangle":
-									if item == "":
-										item = obj["name"]
-									else:
-										item = obj["name"] + item
-
-								if obj["type"].lower() == "text":
-									if "@" in obj["name"]:
-										px = obj["name"].replace("@","").split("_")
-										item = item + " = " + str(px[0]) + "px " + str(px[1]) + "px"
-
-							abc.squishs.append("Spacing.Squish." + item)
-													
-		elif frame["name"].lower() == "spacing stack":
-
-			for group in frame["children"]:
-						
-				if group["type"].lower() == "group":
-
-					for obj in group["children"]:
-
-						if obj["type"].lower() == "rectangle" and obj["name"].lower() != "rectangle":
-							box = obj["absoluteBoundingBox"]
-							abc.spacingStacks.append("Spacing.Stack." + obj["name"] + " = " + str(int(box["height"])) + "px")
-
-		elif frame["name"].lower() == "spacing inline":
-
-			for group in frame["children"]:
-						
-				if group["type"].lower() == "group":
-
-					for obj in group["children"]:
-
-						if obj["type"].lower() == "rectangle" and obj["name"].lower() != "rectangle":
-							box = obj["absoluteBoundingBox"]
-							abc.spacingInlines.append("Spacing.Inline." + obj["name"] + " = " + str(int(box["width"])) + "px")
-
-
 	def detectShadow(abc,frame):
 		if frame["name"].lower() == "shadow":
 			for group in frame["children"]:
@@ -1024,7 +1001,6 @@ class ParseDS:
 
 									rgba = "rgba(" + str(r) + "," + str(g) + "," + str(b) + "," + str(a) + ")"
 									abc.shadows.append("Shadow." + obj["name"] + " =  Blur: " + blur + ", x: " + x + ", y: " + y + ", color: " + str(rgba))
-
 	
 	#dimensões
 
@@ -1033,39 +1009,48 @@ class ParseDS:
 			for component in frame ["children"]:
 				token_espacamento = component["name"]
 				valor_espacamento = component["absoluteBoundingBox"]["width"]
-				abc.dimensoes.append(token_espacamento + "=" + str(valor_espacamento))
+				strValor_space = str(valor_espacamento).split(".")[0]
+				abc.dimensoes.append(token_espacamento + "=" + strValor_space   + "px")
+				abc.spacings.append(token_espacamento + "=" + strValor_space   + "px")
 
 		if frame["name"].lower() == "camadas":
-			token_component = ""
+			token_component = 0
 			value_component = 0
 			for component in frame["children"]:
-				if "children" in component:
-					if component["name"].lower() == "border_width":
-						if "children" in component:
-							for obj in component["children"]:
-								if "children" in obj:
+				if component["name"].lower() == "border_width":
+					if "children" in component:
+						for obj in component["children"]:
+							if "children" in obj:
+									token_component = obj["name"]
 									for element in obj["children"]:
-										token_component = component["name"]
 										if element["type"].lower() == "text":
 											value_component = element["name"]
-										abc.dimensoes.append(token_component + "=" + value_component)
+									abc.dimensoes.append(str(token_component) + "=" + str(value_component))
+									abc.borders.append(str(token_component) + "=" + str(value_component))
 
-					if component["name"].lower() == "border_radius":
-						if "children" in component:
-							for obj in component["children"]:
-								if "children" in obj:
-									for element in obj["children"]:
-										token_component = component["name"]
-										if element["type"].lower() == "text":
-											value_component = element["name"]
-										abc.dimensoes.append(token_component + "=" + value_component)
-					if component["name"].lower() == "shadows":
-						if "children" in component:
-							for obj in component["children"]:
-								if "children" in obj:
-									for element in obj["children"]:
-										token_component = component["name"]
-										abc.dimensoes.append(token_component + "=" + str(value_component))
+				if component["name"].lower() == "border_radius":
+					if "children" in component:
+						for obj in component["children"]:
+							if "children" in obj:
+								token_component = obj["name"]
+								for element in obj["children"]:
+									if element["type"].lower() == "text":
+										value_component = element["name"]
+								abc.dimensoes.append(str(token_component) + "=" + str(value_component))
+								abc.borders.append(str(token_component) + "=" + str(value_component))
+
+				if component["name"].lower() == "shadows":
+					if "children" in component:
+						for obj in component["children"]:
+							if "children" in obj:
+								for element in obj["children"]:
+									if element["type"].lower() == "rectangle":
+										width = element["absoluteBoundingBox"]["width"]
+										height = element["absoluteBoundingBox"]["height"]
+									if element["type"].lower() == "text":
+										valores = element["name"]
+									token_component = component["name"]
+									abc.shadows.append(str(token_component) + "=" + str(value_component))
 
 
 	def getPalletes(abc):
@@ -1115,6 +1100,12 @@ class ParseDS:
 
 	def getDimensoes(abc):
 		return abc.dimensoes
+	
+	def getBorders(abc):
+		return abc.borders
+
+	def getSpacings(abc):
+		return abc.spacings
 
 
 figmaId = "SZNeL3NI0iQRX51kmwKwrp"
