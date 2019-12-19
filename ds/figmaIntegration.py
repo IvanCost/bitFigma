@@ -26,6 +26,7 @@ class ParseDS:
 	componentes = []
 	dimensoes = []
 	spacings = []
+	gradientColors = []
 
 	print("-------------------------------------------")
 	print("Escolha um sistema:\n\n")
@@ -364,8 +365,29 @@ class ParseDS:
 
 		f.write("\n\n</resources>")
 		f.close()
-		g.close()
 	
+		gradients = parse.getGradientColors()
+		for colorGrad in gradients:
+			arr = colorGrad.split("=")
+			colorName = arr[0].replace("/", "_")
+			colorStart = arr[1]
+			colorEnd = arr[2]
+
+			fileGrad = colorName + ".xml"
+			h = open(os.path.join(path, fileGrad),"w+")
+
+			h.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			h.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
+			h.write("<gradient\n")
+			h.write("android:startColor=" + "\"" +colorStart + "\"" +"\n")
+			h.write("android:endColor=" + "\"" +colorEnd + "\"" + ">" +"\n")
+			h.write("</gradient>\n")
+			h.write("</shape>")
+			h.close()
+
+			g.write("$" + colorName+":"+ "(" + colorStart +"," + colorEnd + ")" + ";\n")
+		g.close()
+
 
 		#fonts
 		fontFamilies = parse.getFontFamilies()
@@ -463,6 +485,22 @@ class ParseDS:
 		f.close()
 		g.close()
 		h.close()
+
+		shadowValues = parse.getShadows()
+		file_shadow = "shadows.scss"
+		i = open(os.path.join(path, file_shadow),"w+")
+		for shadows in shadowValues:
+			arr = shadows.split("=")
+			tokenShadow = arr[0]
+			if arr[1] == "0":
+				elevation = "0"
+				i.write("$" + tokenShadow + ":" + elevation  + ";" + "\n")
+			else:
+				elevation = arr[1]
+				i.write("$" + tokenShadow + ":" + elevation + ";" + "\n")
+		i.close()
+
+
 	
 
 		#oldDimens
@@ -832,33 +870,91 @@ class ParseDS:
 				weight = obj["strokeWeight"]
 				abc.borderWeights.append("Border.Width." + obj["name"] + " = " + str(weight) + "px" )
 
-	def detectColors(abc,frame):
+	def detectColors(abc,frame): 
 		if frame["name"].lower() == "colors":
 			for group in frame["children"]:
-
 				if group["type"].lower() == "group":
 					groupName = group["name"]
-					for group2 in group["children"]:
+					if groupName.lower() == "gradient colors":
+						for gradientGroup in group["children"]:
+							if "children" in gradientGroup:
+								for gradient in gradientGroup["children"]:
+									if "children" in gradient:
+										for obj in gradient["children"]:
+												if obj["type"].lower() == "rectangle":
+													if len(obj["fills"]) > 0:
+														for cor in obj["fills"]:
 
-						if "children" in group2:
+															colorName = obj["name"]
 
-							for group3 in group2["children"]:
+															corUm = obj["fills"][0]["gradientStops"][0]["color"]
+															r =  255 if corUm["r"] >= 1.0  else 0 if corUm["r"] <= 0.0 else round(corUm["r"] * 255.0)
+															g =  255 if corUm["g"] >= 1.0  else 0 if corUm["g"] <= 0.0 else round(corUm["g"] * 255.0)
+															b =  255 if corUm["b"] >= 1.0  else 0 if corUm["b"] <= 0.0 else round(corUm["b"] * 255.0)
+															startColor = '#%02x%02x%02x' % ( r, g, b)
 
-								if "children" in group3:
+															corDois = obj["fills"][0]["gradientStops"][1]["color"]
+															r =  255 if corDois["r"] >= 1.0  else 0 if corDois["r"] <= 0.0 else round(corDois["r"] * 255.0)
+															g =  255 if corDois["g"] >= 1.0  else 0 if corDois["g"] <= 0.0 else round(corDois["g"] * 255.0)
+															b =  255 if corDois["b"] >= 1.0  else 0 if corDois["b"] <= 0.0 else round(corDois["b"] * 255.0)
+															endColor = '#%02x%02x%02x' % ( r, g, b)
 
-									for group4 in group3["children"]:
+															abc.gradientColors.append(colorName + "="  + startColor + "=" + endColor)
 
-										if "children" in group4:
-									
-											for color in group4["children"]:
+									else:
+										if gradient["type"].lower() == "rectangle":
+											if len(gradient["fills"]) > 0:
+												for cor in gradient["fills"]:
 
-												if color["type"].lower() == "rectangle":
-													fills = color["fills"][0]["color"]
-													r =  255 if fills["r"] >= 1.0  else 0 if fills["r"] <= 0.0 else round(fills["r"] * 255.0)
-													g =  255 if fills["g"] >= 1.0  else 0 if fills["g"] <= 0.0 else round(fills["g"] * 255.0)
-													b =  255 if fills["b"] >= 1.0  else 0 if fills["b"] <= 0.0 else round(fills["b"] * 255.0)
-													rgb = '#%02x%02x%02x' % ( r, g, b)
-													abc.colors.append(color["name"] + " = " + rgb.upper())
+													colorName = gradient["name"]
+
+													corUm = gradient["fills"][0]["gradientStops"][0]["color"]
+													r =  255 if corUm["r"] >= 1.0  else 0 if corUm["r"] <= 0.0 else round(corUm["r"] * 255.0)
+													g =  255 if corUm["g"] >= 1.0  else 0 if corUm["g"] <= 0.0 else round(corUm["g"] * 255.0)
+													b =  255 if corUm["b"] >= 1.0  else 0 if corUm["b"] <= 0.0 else round(corUm["b"] * 255.0)
+													startColor = '#%02x%02x%02x' % ( r, g, b)
+
+													corDois = gradient["fills"][0]["gradientStops"][1]["color"]
+													r =  255 if corDois["r"] >= 1.0  else 0 if corDois["r"] <= 0.0 else round(corDois["r"] * 255.0)
+													g =  255 if corDois["g"] >= 1.0  else 0 if corDois["g"] <= 0.0 else round(corDois["g"] * 255.0)
+													b =  255 if corDois["b"] >= 1.0  else 0 if corDois["b"] <= 0.0 else round(corDois["b"] * 255.0)
+													endColor = '#%02x%02x%02x' % ( r, g, b)
+
+													abc.gradientColors.append(colorName + "="  + startColor + "=" + endColor)
+					else:
+						for group2 in group["children"]:
+
+							if "children" in group2:
+
+								for group3 in group2["children"]:
+
+									if "children" in group3:
+
+										for group4 in group3["children"]:
+
+											if group4["type"].lower() == "rectangle":
+												if "fills" in group4:
+													if len(group4["fills"]) > 0:
+														fills = group4["fills"][0]["color"]
+														r =  255 if fills["r"] >= 1.0  else 0 if fills["r"] <= 0.0 else round(fills["r"] * 255.0)
+														g =  255 if fills["g"] >= 1.0  else 0 if fills["g"] <= 0.0 else round(fills["g"] * 255.0)
+														b =  255 if fills["b"] >= 1.0  else 0 if fills["b"] <= 0.0 else round(fills["b"] * 255.0)
+														rgb = '#%02x%02x%02x' % ( r, g, b)
+														abc.colors.append(group4["name"] + " = " + rgb.upper())
+
+											if "children" in group4:
+										
+												for color in group4["children"]:
+
+													if color["type"].lower() == "rectangle":
+														if "fills" in color:
+															if len(color["fills"]) > 0:
+																fills = color["fills"][0]["color"]
+																r =  255 if fills["r"] >= 1.0  else 0 if fills["r"] <= 0.0 else round(fills["r"] * 255.0)
+																g =  255 if fills["g"] >= 1.0  else 0 if fills["g"] <= 0.0 else round(fills["g"] * 255.0)
+																b =  255 if fills["b"] >= 1.0  else 0 if fills["b"] <= 0.0 else round(fills["b"] * 255.0)
+																rgb = '#%02x%02x%02x' % ( r, g, b)
+																abc.colors.append(color["name"] + " = " + rgb.upper())
 			
 
 	def detectFontFamily(abc,frame):
@@ -902,10 +998,11 @@ class ParseDS:
 	def detectSvgPath(abc,frame):
 		if frame["name"].lower() == "iconografia":
 			for group in frame["children"]:
-				for obj in group["children"]:
-					if obj["type"].lower() == "text":
-						path = group["name"] + "=" + obj["name"]
-						abc.svgpaths.append(path)
+				if "children" in group:
+					for obj in group["children"]:
+						if obj["type"].lower() == "text":
+							path = group["name"] + "=" + obj["name"]
+							abc.svgpaths.append(path)
 
 	#export svg files está aqui
 	def detectImagens(abc,frame):
@@ -1047,10 +1144,10 @@ class ParseDS:
 									if element["type"].lower() == "rectangle":
 										width = element["absoluteBoundingBox"]["width"]
 										height = element["absoluteBoundingBox"]["height"]
+										token_component = element["name"]
 									if element["type"].lower() == "text":
-										valores = element["name"]
-									token_component = component["name"]
-									abc.shadows.append(str(token_component) + "=" + str(value_component))
+										value_component = element["name"]
+							abc.shadows.append(str(token_component) + "=" + str(value_component))
 
 
 	def getPalletes(abc):
@@ -1106,6 +1203,12 @@ class ParseDS:
 
 	def getSpacings(abc):
 		return abc.spacings
+
+	def getShadows(abc):
+		return abc.shadows
+
+	def getGradientColors(abc):
+		return abc.gradientColors
 
 
 figmaId = "SZNeL3NI0iQRX51kmwKwrp"
