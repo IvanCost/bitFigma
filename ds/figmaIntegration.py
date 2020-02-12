@@ -13,6 +13,7 @@ class ParseDS:
 	borderRadius = []
 	borders = []
 	shadows = []
+	shadowsAndroid = []
 	fontSizes = []
 	fontFamilies = []
 	opacitys = []
@@ -27,6 +28,25 @@ class ParseDS:
 	dimensoes = []
 	spacings = []
 	gradientColors = []
+	autocompletes = []
+	radioButtons = []
+	toogles = []
+	sliders = []
+	progressbar = []
+	search = []
+	tooltips = []
+	chips = []
+	textArea = []
+	overflowMenu = []
+	navigationBar = []
+	datePicker = []
+	timePicker = []
+	dropDown = []
+	cards = []
+
+	#Listas dos componentes:
+	buttons = []
+	checkBoxes = []
 
 	print("-------------------------------------------")
 	print("Escolha um sistema:\n\n")
@@ -366,6 +386,7 @@ class ParseDS:
 		f.write("\n\n</resources>")
 		f.close()
 	
+		#gradients 
 		gradients = parse.getGradientColors()
 		for colorGrad in gradients:
 			arr = colorGrad.split("=")
@@ -461,14 +482,19 @@ class ParseDS:
 		f.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
 		f.write("<resources> \n\n")		
 
-		#android
+		#android dimens
 		dimensoes = parse.getDimensoes()
 		for dimens in dimensoes:
+			dimenValue = "0px"
 			arr = dimens.split("=")
 			className = arr[0].strip().replace(".","-").replace("-", "_").lower()
-			f.write("<dimen name = " + "\"" + className +"\"" + ">" + arr[1] + "</dimen>"";\n")
+			if arr[1] == "0":
+				dimenValue == arr[1] + "px"
+			else:
+				dimenValue = arr[1]
+			f.write("<dimen name = " + "\"" + className +"\"" + ">" + dimenValue + "</dimen>"";\n")
 		
-		#web
+		#web dimens 
 		bordersDimens = parse.getBorders()
 		for borders in bordersDimens:
 			arr = borders.split("=")
@@ -480,6 +506,17 @@ class ParseDS:
 			arr = spacing.split("=")
 			className = arr[0].strip().replace(".","-").replace("-", "_").lower()
 			g.write("$" + className + ":" + arr[1] + ";" +  "\n")
+
+		shadowValuesAndroid = parse.getShadowAndroid()
+		for shadows in shadowValuesAndroid:
+			arr = shadows.split("=")
+			tokenShadow = arr[0].replace("-","_").replace(" ", "")
+			if arr[1] == "0":
+				elevation = "0"
+				f.write("<dimen name = " + "\"" + tokenShadow +"\"" + ">" + elevation + "</dimen>"";\n")
+			else:
+				elevation = arr[1]
+				f.write("<dimen name = " + "\"" + tokenShadow +"\"" + ">" + elevation + "</dimen>"";\n")
 
 		f.write("</resources>")
 		f.close()
@@ -499,9 +536,6 @@ class ParseDS:
 				elevation = arr[1]
 				i.write("$" + tokenShadow + ":" + elevation + ";" + "\n")
 		i.close()
-
-
-	
 
 		#oldDimens
 		path = "ata"
@@ -562,7 +596,7 @@ class ParseDS:
 		f.close()
 	
 
-		#whatever
+		#whatever (remover)
 		path = "whatever"
 		file_name = "whatever.xml"
 		try:
@@ -654,11 +688,28 @@ class ParseDS:
 			f.write("</svg>")
 
 			f.close()
-
-		
+	
 		#componentes
 		
 		componentesList = parse.getComponentes()
+		checkBoxList = parse.getCheckBoxes()
+		autocompleteList = parse.getAutocompletes()
+		radioButtonsList = parse.getRadioButtons()
+		tooglesLits = parse.getToogles()
+		slidersList = parse.getSliders()
+		progressBarList = parse.getProgressBar()
+		searchList = parse.getSearch()
+		tooltipList = parse.getTooltips()
+		chipsList = parse.getChips()
+		textAreaList = parse.getTextArea()
+		overFlowMenuList = parse.getOverflowMenu()
+		navigationBarList = parse.getNavigationBar()
+		datePickerList = parse.getDatePicker()
+		timePickerList = parse.getTimePicker()
+		buttonList = parse.getButtons()
+		cardList = parse.getCards()
+		dropDownList = parse.getDropDown()
+
 		path = "values"
 		try:
 			if not os.path.exists(path):
@@ -673,10 +724,54 @@ class ParseDS:
 		f.seek(0)
 		f.truncate()
 		f.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
-		f.write("<resources> \n\n")
+		f.write("<resources xmlns:tools=" + "\"" + "http://schemas.android.com/tools" + "\"" + "> \n\n")
+
+		path = "drawable"
+		try:
+			if not os.path.exists(path):
+				os.mkdir(path)
+		except OSError:
+				print ("Creation of the directory %s failed" % path)
+		else:
+				print ("Successfully created the directory %s " % path)
+
+		for buttons in buttonList:
+			arr = buttons.split("-")
+			token_componente = arr[0].split("=")[1].lower() + ".xml"
+			backgroundColor = arr[1].split("=")[1]
+			strokeColor = arr[5].split("=")[1]
+
+			if backgroundColor.lower() == "#000000" or backgroundColor.lower() == "":
+				backgroundColor = "#00000000"
+			
+			if strokeColor.lower() == "#000000" or strokeColor.lower() == "":
+				strokeColor = "#00000000"
+
+			g = open(os.path.join(path, token_componente),"w+")
+			g.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			g.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
+			g.write("<solid\n")
+			g.write("android:color=" + "\"" + backgroundColor + "\"" + ">" +"\n")
+			g.write("</solid>\n\n")
+			g.write("<stroke\n")
+			g.write("android:width=" + "\"" + "1dp" + "\"" + "\n")
+			g.write("android:color=" + "\"" + strokeColor + "\"" + ">" +"\n")
+			g.write("</stroke>\n")
+			g.write("<corners\n")
+			g.write("android:radius=" + "\"" + arr[2].split("=")[1].split(".")[0] + "dp"  + "\"" + ">" +"\n")
+			g.write("</corners>\n")
+			g.write("</shape>")
+			g.close()
+
+			f.write("<style name = " + "\"" + token_componente.split(".")[0] +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:background" +"\"" + ">" + "@drawable/" + token_componente.split(".")[0] + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:textSize" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + "12" + "dp" + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + "Roboto"+ "</item>""\n")
+			f.write("<item name = " + "\"" + "android:textColor" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + "#FFFF" + "</item>""\n")			
+			f.write("</style>\n\n")
+
 		for componente in componentesList:
 
-			#escrevendo XML de styles
 			arr = componente.split("-")
 			f.write("<style name = " + "\"" + arr[0].split("=")[1].replace("/", "_").replace(" ", "").lower() +"\"" + ">" + "\n")
 			f.write("<item name = " + "\"" + "android:background" +"\"" + ">" + "@drawable/" + arr[0].split("=")[1].replace("/", "_").replace(" ", "").lower() + "</item>""\n")
@@ -687,33 +782,317 @@ class ParseDS:
 			f.write("<item name = " + "\"" + arr[6].split("=")[0] +"\"" + ">" + arr[6].split("=")[1].split(".")[0] + "dp" + "</item>""\n")
 			f.write("<item name = " + "\"" + arr[7].split("=")[0] +"\"" + ">" + arr[7].split("=")[1] + "</item>""\n")
 			f.write("</style>\n\n")
+		
+		for checkboxes in checkBoxList:
+			arr = checkboxes.split("-")
+			f.write("<style name = " + "\"" + arr[0].split("=")[1].replace("/", "_").replace(" ", "") +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:colorControlNormal" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "#FFF" + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:colorControlActivated" +"\"" + " tools:targetApi=" +  "\"" + "lollipop" +  "\"" + ">" + arr[1].split("=")[1] + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:textSize" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + arr[2].split("=")[1].split(".")[0] + "dp" + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + arr[3].split("=")[1]+ "</item>""\n")
+			f.write("</style>\n\n")
 
-			#escrevendo XML de cada componente
-			path = "drawable"
-			try:
-				if not os.path.exists(path):
-					os.mkdir(path)
-			except OSError:
-				print ("Creation of the directory %s failed" % path)
-			else:
-				print ("Successfully created the directory %s " % path)
+		for autocomplete in autocompleteList:
+			arr = autocomplete.split("-")
+			f.write("<style name = " + "\"" + "listViewStyle" + "\"" + " parent=" +  "\"" + "Widget.AppCompat.ListView.DropDown" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:background" + "\"" + ">" + arr[0].split("=")[1] + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:selectableItemBackground" + "\"" + ">" + arr[1].split("=")[1] + "</item>" + "\n")
+			f.write("</style>\n\n")
 
-			token_componente = arr[0].split("=")[1].replace(" / ", "_").replace(" ", "").lower() + ".xml"
-			g = open(os.path.join(path, token_componente),"w+")
-			g.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
-			g.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
-			g.write("<solid\n")
-			g.write("android:color=" + "\"" + arr[1].split("=")[1] + "\"" + ">" +"\n")
-			g.write("</solid>\n\n")
-			g.write("<stroke\n")
-			g.write("android:width=" + "\"" + "1dp" + "\"" + "\n")
-			g.write("android:color=" + "\"" + arr[8].split("=")[1] + "\"" + ">" +"\n")
-			g.write("</stroke>\n")
-			g.write("<corners\n")
-			g.write("android:radius=" + "\"" + arr[4].split("=")[1].split(".")[0] + "dp"  + "\"" + ">" +"\n")
-			g.write("</corners>\n")
-			g.write("</shape>")
-			g.close()
+			f.write("<style name = " + "\"" + "dropDownStyle" + "\""  + " parent=" +  "\"" + "Widget.AppCompat.DropDownItem.Spinner" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\"" + ">" + "#000000" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textSize" + "\"" + ">" + "16dp" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+			f.write("<style name = " + "\"" + "autocompleteStyle" + "\""  + " parent=" +  "\"" + "Widget.AppCompat" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\"" + ">" + "#000000" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textSize" + "\"" + ">" + "16dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:dropDownItemStyle" + "\"" + ">" + "@style/dropDownStyle" + "</item>" + "\n")
+			f.write("<item name = " + "\"" + "android:dropDownListViewStyle" + "\"" + ">" + "@style/listViewStyle" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+		for radioButton in radioButtonsList:
+			arr = radioButton.split("-")
+			f.write("<style name = " + "\"" + arr[0].split("=")[1] + "\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:colorControlNormal" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "#FFFF" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:colorControlActivated" + "\""  " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[1].split("=")[1] + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textColorPrimaryDisableOnly" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[1].split("=")[1] + "</item>" + "\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[1].split("=")[1] + "</item>" + "\n")
+			f.write("<item name = " + "\"" + "android:buttonTint" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[2].split("=")[1] + "</item>" + "\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "Roboto" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+		for toogles in tooglesLits:
+			arr = toogles.split("-")
+			situation = arr[0].split("=")[1]
+
+			f.write("<style name = " + "\"" +situation + "\"" + ">" + "\n")
+
+			if situation.lower()=="toogle_off":
+				colorDisabled = arr[1].split("-")[1]
+				f.write("<item name = " + "\"" + "android:colorControlNormal" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + colorDisabled + "</item>"+"\n")
+			
+			if situation.lower() == "toogle_on":
+				colorEnabled = arr[1].split("-")[1]
+				f.write("<item name = " + "\"" + "android:colorControlActivated" + "\""  " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + colorEnabled + "</item>"+"\n")
+
+		
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[1].split("=")[1] + "</item>" + "\n")
+			f.write("<item name = " + "\"" + "android:strokeColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[2].split("=")[1] + "</item>" + "\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "Roboto" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+		for slider in slidersList:
+			arr = slider.split("-")
+			colorBackground = arr[0].split("=")[1]
+			colorProgress =  arr[1].split("=")[1]
+			name = arr[2].split("=")[1]
+
+			f.write("<style name = " + "\"" + name +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:progressBackgroundTint" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + colorBackground + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:progressTint" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + colorProgress+ "</item>""\n")
+			f.write("<item name = " + "\"" + "android:colorControlActivated" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" +colorProgress + "</item>""\n")			
+			f.write("</style>\n\n")		
+
+		for progressbar in progressBarList:
+			arr = progressbar.split("-")
+			f.write("<style name = " + "\"" + arr[0].split("=")[1].replace(" ", "") + "\"" + " parent=" +  "\"" + "Widget.AppCompat.ProgressBar.Horizontal" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:progressTint" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[1].split("=")[1] + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:progressBackgroundTint" + "\""  " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[2].split("=")[1] + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "Roboto" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+		for search in searchList:
+
+			iconfile = "searchicon.xml"
+
+			arr = search.split("-")
+			tokenComponente = arr[0].split("=")[1] + ".xml"
+			backgroundColor = arr[1].split("=")[1]
+			colorIcon = arr[2].split("=")[1]
+			radius = arr[3].split("=")[1].split(".")[0]
+			pathIcon = "M15.5,14h-0.79l-0.28,-0.27C15.41,12.59 16,11.11 16,9.5 16,5.91 13.09,3 9.5,3S3,5.91 3,9.5 5.91,16 9.5,16c1.61,0 3.09,-0.59 4.23,-1.57l0.27,0.28v0.79l5,4.99L20.49,19l-4.99,-5zM9.5,14C7.01,14 5,11.99 5,9.5S7.01,5 9.5,5 14,7.01 14,9.5 11.99,14 9.5,14z"
+
+			h = open(os.path.join(path, iconfile),"w+")
+			h.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			h.write("<vector xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ "\n\n")
+			h.write("android:viewportWidth=" + "\"" +"24.0" + "\"\n")
+			h.write("android:viewportHeight=" + "\"" +"24.0" +"\""+ "\n" )
+			h.write("android:width=" + "\"" +"24dp" + "\"\n")
+			h.write("android:height=" + "\"" +"24dp" +"\""+ ">" + "\n\n")
+			h.write("<path\n")
+			h.write("android:pathData=" + "\"" + pathIcon + "\"" + "\n")
+			h.write("android:fillColor=" + "\"" + colorIcon + "\"")
+			h.write("/>\n")
+			h.write("</vector>")
+			h.close()
+
+
+			d = open(os.path.join(path, token_componente),"w+")
+			d.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			d.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
+			d.write("<solid\n")
+			d.write("android:color=" + "\"" + backgroundColor + "\"" + ">" +"\n")
+			d.write("</solid>\n\n")
+			d.write("<corners\n")
+			d.write("android:radius=" + "\"" + radius + "dp"  + "\"" + ">" +"\n")
+			d.write("</corners>\n")
+			d.write("</shape>")
+			d.close()
+
+
+			f.write("<style name = " + "\"" + arr[0].split("=")[1].replace(" ", "") + "\"" + " parent=" +  "\"" + "Widget.AppCompat.SearchView" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:background" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" "@drawable/" + token_componente.split(".")[0] + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:searchIcon" + "\""  + " tools:ignore=" +  "\"" + "NewApi" +"\"" + ">" + "@drawable/" + iconfile.split(".")[0] + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "10dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "#A4AAAC" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+		for tooltip in tooltipList:
+			arr = tooltip.split("-")
+			token_componente = arr[0].split("=")[1].lower() + ".xml"
+			backgroundColor = arr[1].split("=")[1]
+			corners = arr[2].split("=")[1]
+
+			x = open(os.path.join(path, token_componente),"w+")
+			x.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			x.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
+			x.write("<solid\n")
+			x.write("android:color=" + "\"" + backgroundColor + "\"" + ">" +"\n")
+			x.write("</solid>\n\n")
+			x.write("<stroke\n")
+			x.write("android:width=" + "\"" + "1dp" + "\"" + "\n")
+			x.write("android:color=" + "\"" + backgroundColor + "\"" + ">" +"\n")
+			x.write("</stroke>\n")
+			x.write("<corners\n")
+			x.write("android:radius=" + "\"" + corners + "dp"  + "\"" + ">" +"\n")
+			x.write("</corners>\n")
+			x.write("</shape>")
+			x.close()
+
+			f.write("<style name = " + "\"" + token_componente.split(".")[0] + "\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:colorBackground" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + arr[1].split("=")[1] + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "#FFFF" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:fontSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "12dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:lineSpacingExtra" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "12dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:cornerRadius" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "15dp" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+		for chips in chipsList:
+			
+			arr = chips.split("-")
+
+			backgroundColor = arr[0].split("=")[1]
+			closeIconColor = arr[1].split("=")[1]
+
+			f.write("<style name = " + "\"" + "chip_contact_photo_icon" + "\"" + " parent=" +  "\"" + "Widget.MaterialComponents.Chip.Entry" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "chipBackgroundColor" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + backgroundColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "iconEndPadding" + "\""  " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "10dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "chipIconSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "32dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "iconStartPadding" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "-4dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "12dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + closeIconColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "Roboto" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "closeIconTint" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + closeIconColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "enforceTextAppearance" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "false" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+			f.write("<style name = " + "\"" + "chip_contact_photo" + "\"" + " parent=" +  "\"" + "Widget.MaterialComponents.Chip.Action" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "chipBackgroundColor" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + backgroundColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "iconEndPadding" + "\""  " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "10dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "chipIconSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "32dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "iconStartPadding" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "-4dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "12dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + closeIconColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "Roboto" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "enforceTextAppearance" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "false" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+			f.write("<style name = " + "\"" + "chip_text_icon" + "\"" + " parent=" +  "\"" + "Widget.MaterialComponents.Chip.Entry" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "chipBackgroundColor" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + backgroundColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "12dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + closeIconColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "Roboto" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "enforceTextAppearance" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "false" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+			f.write("<style name = " + "\"" + "chip_text" + "\"" + " parent=" +  "\"" + "Widget.MaterialComponents.Chip.Choice" +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "chipBackgroundColor" + "\"" + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + backgroundColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textSize" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "12dp" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:textColor" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + closeIconColor + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "Roboto" + "</item>"+"\n")
+			f.write("<item name = " + "\"" + "enforceTextAppearance" + "\""  + " tools:targetApi=" +  "\"" + "lollipop" +"\"" + ">" + "false" + "</item>"+"\n")
+			f.write("</style>\n\n")
+
+		for textArea in textAreaList:
+			arr = textArea.split("-")
+			token_componente = arr[0].split("=")[1].lower() + ".xml"
+			backgroundColor = arr[1].split("=")[1]
+			corners = arr[2].split("=")[1]
+
+			u = open(os.path.join(path, token_componente),"w+")
+			u.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			u.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
+			u.write("<solid\n")
+			u.write("android:color=" + "\"" + backgroundColor + "\"" + ">" +"\n")
+			u.write("</solid>\n\n")
+			u.write("<stroke\n")
+			u.write("android:width=" + "\"" + "1dp" + "\"" + "\n")
+			u.write("android:color=" + "\"" + backgroundColor + "\"" + ">" +"\n")
+			u.write("</stroke>\n")
+			u.write("<corners\n")
+			u.write("android:radius=" + "\"" + corners + "dp"  + "\"" + ">" +"\n")
+			u.write("</corners>\n")
+			u.write("</shape>")
+			u.close()
+
+			f.write("<style name = " + "\"" + token_componente.split(".")[0] +"\"" + ">" + "\n")
+			f.write("<item name = " + "\"" + "android:background" +"\"" + ">" + "@drawable/" + token_componente.split(".")[0] + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:textSize" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + "12" + "dp" + "</item>""\n")
+			f.write("<item name = " + "\"" + "android:fontFamily" +"\"" + " tools:targetApi="+   "\"" + "lollipop" +"\"" + ">" + "Roboto"+ "</item>""\n")			
+			f.write("</style>\n\n")
+
+		for overflowMenu in overFlowMenuList:
+			arr = overflowMenu.split("=")
+			colorBackgroundMenu = ""
+			colorIconSelected = ""
+			colorTextSelected = ""
+			colorItemSelected = ""
+			colorTextNormal = ""
+			tokenComponente = ""
+			corners = ""
+
+		for navigationBar in navigationBarList: 
+			arr = navigationBar.split("-")
+			colorToolbar = arr[0].split("=")[1]
+			colorStatusBar = arr[1].split("=")[1]
+			colorTittle = arr[2].split("=")[1]
+			name = arr[3].split("=")[1]
+
+		for datePicker in datePickerList:
+			arr = datePicker.split("-")
+			datePickerColor = arr[0].split("=")[1]
+		
+		for timePicker in timePickerList:
+			arr = timePicker.split("-")
+			timePickerColor = arr[0].split("=")[1]
+
+		for cards in cardList:
+			arr = cards.split("-")
+			nome = arr[0].split("=")[1]
+			backgroundColor = arr[1].split("=")[1]
+			radius = arr[2].split("=")[1].split(".")[0]
+			arquivo = nome + ".xml"
+
+			d = open(os.path.join(path, arquivo),"w+")
+			d.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			d.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
+			d.write("<solid\n")
+			d.write("android:color=" + "\"" + backgroundColor + "\"" + ">" +"\n")
+			d.write("</solid>\n\n")
+			d.write("<corners\n")
+			d.write("android:radius=" + "\"" + radius + "dp"  + "\"" + ">" +"\n")
+			d.write("</corners>\n")
+			d.write("</shape>")
+			d.close()
+
+		for dropDown in dropDownList:
+			arr = dropDown.split("-")
+			iconfile = "arrowdown.xml"
+			tokenComponente = "selectbackground.xml"
+			colorDivider = arr[0].split("=")[1]
+			colorListOptions = arr[1].split("=")[1]
+			colorSelectBackground = arr[2].split("=")[1]
+			pathIcon = "M16.59,8.59L12,13.17 7.41,8.59 6,10l6,6 6,-6z"
+			colorIcon = arr[3].split("=")[1]
+			radius = arr[4].split("=")[1].split(".")[0]
+
+			h = open(os.path.join(path, iconfile),"w+")
+			h.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			h.write("<vector xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ "\n\n")
+			h.write("android:viewportWidth=" + "\"" +"24.0" + "\"\n")
+			h.write("android:viewportHeight=" + "\"" +"24.0" +"\""+ "\n" )
+			h.write("android:width=" + "\"" +"24dp" + "\"\n")
+			h.write("android:height=" + "\"" +"24dp" +"\""+ ">" + "\n\n")
+			h.write("<path\n")
+			h.write("android:pathData=" + "\"" + pathIcon + "\"" + "\n")
+			h.write("android:fillColor=" + "\"" + colorIcon + "\"")
+			h.write("/>\n")
+			h.write("</vector>")
+			h.close()
+
+			d = open(os.path.join(path, tokenComponente),"w+")
+			d.write("<?xml version=" + "\"" + "1.0" +"\"" + " encoding="  + "\"" + "utf-8" +"\"" "?>\n\n")
+			d.write("<shape xmlns:android=" + "\""+ "http://schemas.android.com/apk/res/android" + "\""+ ">" + "\n\n")
+			d.write("<solid\n")
+			d.write("android:color=" + "\"" + colorSelectBackground + "\"" + ">" +"\n")
+			d.write("</solid>\n\n")
+			d.write("<corners\n")
+			d.write("android:radius=" + "\"" + radius + "dp"  + "\"" + ">" +"\n")
+			d.write("</corners>\n")
+			d.write("</shape>")
+			d.close()
+
 
 		f.write("\n\n</resources>")
 		f.close()
@@ -738,18 +1117,781 @@ class ParseDS:
 		abc.detectComponents(frame)
 
 	def detectComponents(abc,frame):
+		if frame["name"].lower() == "componentes_atech": #frame
+			if "children" in frame:
+				frame_content = frame["children"]
+				for group_component in frame_content: #grupo de componentes
+					groupName = group_component["name"]
+					corners = ""
+					height= ""
+					name = ""
+					color = ""
+					strokeColor = ""
+					strokeWeight = ""
+					colorProgress = ""
+					colorBackgroundProgress = ""
+					iconColor = ""
+					backgroundColor = ""
+					closeIconColor = ""
+					selectedItemColor = ""
+					selectedIconColor = ""
+					colorToolbar = ""
+					colorStatusBar = ""
+					titlleColor = ""
+					colorDatePicker = ""
+					colorTimePicker = ""
+					colorDivider = ""
+					colorListOptions = ""
+					item_list = ""
+					colorBackground = ""
+
+					if groupName.lower() == "checkbox-group":
+						print("entrou no checkboxes")
+						fontFamily = ""
+						fontSize = ""
+						if "children" in group_component:
+								subgroup = group_component["children"]
+								for subgroup2 in subgroup:
+									if "children" in subgroup2:
+										subgroup3 = subgroup2["children"]
+										for subgroup4 in subgroup3:
+											
+											if subgroup4 ["type"].lower() == "text":
+												print("nome do textview = " + subgroup4["name"])
+
+												if "style" in subgroup4:
+													style = subgroup4["style"]
+													fontFamily = style["fontFamily"]
+													fontSize = style["fontSize"]
+
+											if subgroup4["type"].lower() == "rectangle":
+												#print(element["name"])
+
+												strokeColor = ""
+
+												color = subgroup4["fills"][0]["color"]
+												r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+												g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+												b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+												color = '#%02x%02x%02x' % ( r, g, b)
+
+												corners = subgroup4["cornerRadius"]
+												height = subgroup4["absoluteBoundingBox"]["height"]
+												width = subgroup4["absoluteBoundingBox"]["width"]
+												name = subgroup2["name"]
+
+												if "strokes" in subgroup4 and len(subgroup4["strokes"]) > 0:
+													strokeColor = subgroup4["strokes"][0]["color"]
+													r =  255 if strokeColor["r"] >= 1.0  else 0 if strokeColor["r"] <= 0.0 else round(strokeColor["r"] * 255.0)
+													g =  255 if strokeColor["g"] >= 1.0  else 0 if strokeColor["g"] <= 0.0 else round(strokeColor["g"] * 255.0)
+													b =  255 if strokeColor["b"] >= 1.0  else 0 if strokeColor["b"] <= 0.0 else round(strokeColor["b"] * 255.0)
+													strokeColor = '#%02x%02x%02x' % ( r, g, b)
+
+												strokeWeight = subgroup4["strokeWeight"]
+
+												abc.checkBoxes.append("name=" + name  + "-" + "color=" + color + "-" +  "fontSize=" +str(fontSize) + "-" + "fontFamily=" + str(fontFamily) + "-" +  "strokeColor=" + str(strokeColor))
+
+												print("name: " + name + "\n" + "color: " + color +"\n" + "corners: " +str(corners) + "\n" + "height: " +str(height) + "\n" + "width: " + str(width) + "\n" +  "strokeColor: " + str(strokeColor))
+
+
+											if "children" in subgroup4:
+												subgroup5 = subgroup4["children"]
+												for element in subgroup5:
+								
+													if "children" in element:
+														subgroup6 = element["children"]
+														for obj in subgroup6:
+															print(obj["name"])
+
+															if obj["type"].lower() == "rectangle":
+
+																name = subgroup2["name"]
+																strokeColor = ""
+
+																color = obj["fills"][0]["color"]
+																r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+																g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+																b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+																color = '#%02x%02x%02x' % ( r, g, b)
+
+																if "strokes" in obj and len(obj["strokes"]) > 0:
+																	strokeColor = obj["strokes"][0]["color"]
+																	r =  255 if strokeColor["r"] >= 1.0  else 0 if strokeColor["r"] <= 0.0 else round(strokeColor["r"] * 255.0)
+																	g =  255 if strokeColor["g"] >= 1.0  else 0 if strokeColor["g"] <= 0.0 else round(strokeColor["g"] * 255.0)
+																	b =  255 if strokeColor["b"] >= 1.0  else 0 if strokeColor["b"] <= 0.0 else round(strokeColor["b"] * 255.0)
+																	strokeColor = '#%02x%02x%02x' % ( r, g, b)
+
+																height = obj["absoluteBoundingBox"]["height"]
+																width = obj["absoluteBoundingBox"]["width"]
+
+																corners = obj["cornerRadius"]
+																abc.checkBoxes.append("name=" + name  + "-" + "color=" + color + "-" +  "fontSize=" +str(fontSize) + "-" + "fontFamily=" + str(fontFamily) + "-" +  "strokeColor=" + str(strokeColor))
+
+
+																print(str(color) + "\n" + str(height) + "\n" + str(width) + "\n" + str(corners) + "\n" + str(strokeColor) +  "\n")
+
+															if obj ["type"].lower() == "text":
+																print("amém")
+													
+													else:
+														print(element["name"])
+
+														if element["type"].lower() == "rectangle":
+
+															name = subgroup2["name"]
+
+															color = element["fills"][0]["color"]
+															r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+															g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+															b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+															color = '#%02x%02x%02x' % ( r, g, b)
+
+															if "strokes" in element and len(element["strokes"])>0:
+																strokeColor = element["strokes"][0]["color"]
+																r =  255 if strokeColor["r"] >= 1.0  else 0 if strokeColor["r"] <= 0.0 else round(strokeColor["r"] * 255.0)
+																g =  255 if strokeColor["g"] >= 1.0  else 0 if strokeColor["g"] <= 0.0 else round(strokeColor["g"] * 255.0)
+																b =  255 if strokeColor["b"] >= 1.0  else 0 if strokeColor["b"] <= 0.0 else round(strokeColor["b"] * 255.0)
+																strokeColor = '#%02x%02x%02x' % ( r, g, b)
+
+															height = element["absoluteBoundingBox"]["height"]
+															width = element["absoluteBoundingBox"]["width"]
+
+															corners = element["cornerRadius"]
+
+															abc.checkBoxes.append("name=" + name  + "-" + "color=" + color + "-" +  "fontSize=" +str(fontSize) + "-" + "fontFamily=" + str(fontFamily) + "-" +  "strokeColor=" + str(strokeColor))
+
+															print(str(color) + "\n" + str(height) + "\n" + str(width) + "\n" + str(corners) + "\n" + str(strokeColor) +  "\n")
+				
+					if groupName.lower() == "button-group":
+						print("entrou no button-group")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+												if element["type"].lower() == "rectangle":
+													#print(element["name"])
+
+													color = ""
+												
+													if "fills" in element and len(element["fills"]) > 0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														color = '#%02x%02x%02x' % ( r, g, b)
+
+
+													if "cornerRadius" in element:
+														corners = element["cornerRadius"]
+													
+													height = element["absoluteBoundingBox"]["height"]
+													width = element["absoluteBoundingBox"]["width"]
+													name = subgroup2["name"].replace("-", "_").replace(" ", "_")
+
+													if "strokes" in element and len(element["strokes"])>0:
+														strokeColor = element["strokes"][0]["color"]
+														r =  255 if strokeColor["r"] >= 1.0  else 0 if strokeColor["r"] <= 0.0 else round(strokeColor["r"] * 255.0)
+														g =  255 if strokeColor["g"] >= 1.0  else 0 if strokeColor["g"] <= 0.0 else round(strokeColor["g"] * 255.0)
+														b =  255 if strokeColor["b"] >= 1.0  else 0 if strokeColor["b"] <= 0.0 else round(strokeColor["b"] * 255.0)
+														strokeColor = '#%02x%02x%02x' % ( r, g, b)
+
+													strokeWeight = element["strokeWeight"]
+
+													abc.buttons.append("name=" + name  + "-" + "color=" + color + "-" + "corners=" +str(corners) + "-" +  "height=" +str(height) + "-" + "width=" + str(width) + "-" +  "strokeColor=" + str(strokeColor))
+
+													print("______coisas do group_button_______\n" + str(name)+"\n"+str(color)+"\n"+str(corners)+"\n"+str(height)+"\n"+str(width)+"\n"+str(strokeColor))
+
+					if groupName.lower() == "autocomplete-group":
+							print("entrou no autocomplete")
+							colorBackground = ""
+							colorSelected = ""
+							if "children" in group_component:
+								subgroup = group_component["children"]
+								for subgroup2 in subgroup:
+									if "children" in subgroup2:
+										listSubGroup2 = subgroup2["children"]
+										for obj in listSubGroup2:
+											if "children" in obj:
+												listObj = obj["children"]
+												for component in listObj:
+													if "children" in component:
+														subgroup3 = component["children"]
+														for element in subgroup3:
+															print(element["name"])
+															if element["type"].lower()=="rectangle" and component["name"].lower()=="select-open":
+
+																if element["name"].lower() == "box-shadow-1":
+																	color = element["fills"][0]["color"]
+																	r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+																	g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+																	b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+																	colorBackground = '#%02x%02x%02x' % ( r, g, b)
+
+																else: 
+
+																	color = element["fills"][0]["color"]
+																	r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+																	g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+																	b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+																	colorSelected = '#%02x%02x%02x' % ( r, g, b)
+
+																abc.autocompletes.append("corBackground=" + str(colorBackground) + "-" + "corSelecionado=" + str(colorSelected))
+
+																print("cor do background: " + str(colorBackground))
+																print("cor do elemento selecionado: " + str(colorSelected))
+
+					if groupName.lower() == "radio-group":
+						print("entrou no radiobutton")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+												if element["type"].lower() == "rectangle":
+
+
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														color = '#%02x%02x%02x' % ( r, g, b)
+
+													if "strokes" in element and len(element["strokes"])>0:
+														strokeColor = element["strokes"][0]["color"]
+														r =  255 if strokeColor["r"] >= 1.0  else 0 if strokeColor["r"] <= 0.0 else round(strokeColor["r"] * 255.0)
+														g =  255 if strokeColor["g"] >= 1.0  else 0 if strokeColor["g"] <= 0.0 else round(strokeColor["g"] * 255.0)
+														b =  255 if strokeColor["b"] >= 1.0  else 0 if strokeColor["b"] <= 0.0 else round(strokeColor["b"] * 255.0)
+														strokeColor = '#%02x%02x%02x' % ( r, g, b)
+													
+													name = subgroup2["name"].replace("/", "_").replace(" ", "")
+
+													height = element["absoluteBoundingBox"]["height"]
+													width = element["absoluteBoundingBox"]["width"]
+
+													corners = element["cornerRadius"]
+
+													item_list = "nome=" + str(name) + "-" + "color=" + str(color) + "-" + "stroke=" + str(strokeColor) + "-" + "height=" + str(height) + "-" + "width=" + str(width) + "-" + "corners=" + str(corners)
+													
+													if str(item_list) in abc.radioButtons:
+														print("")
+													else:
+														abc.radioButtons.append(str(item_list))
+
+													print("itens do radiobutton" + str(color) +"\n" + str(strokeColor) + "\n" + str(height) + "\n" + str(width) + "\n" + str(corners))
+	
+					if groupName.lower() == "toogles":
+						print("entrou no toogles")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+												if element["type"].lower() == "rectangle":
+
+
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														color = '#%02x%02x%02x' % ( r, g, b)
+
+													if "strokes" in element and len(element["strokes"])>0:
+														strokeColor = element["strokes"][0]["color"]
+														r =  255 if strokeColor["r"] >= 1.0  else 0 if strokeColor["r"] <= 0.0 else round(strokeColor["r"] * 255.0)
+														g =  255 if strokeColor["g"] >= 1.0  else 0 if strokeColor["g"] <= 0.0 else round(strokeColor["g"] * 255.0)
+														b =  255 if strokeColor["b"] >= 1.0  else 0 if strokeColor["b"] <= 0.0 else round(strokeColor["b"] * 255.0)
+														strokeColor = '#%02x%02x%02x' % ( r, g, b)
+
+													name = subgroup2["name"].replace("/", "_").replace(" ", "")
+													height = element["absoluteBoundingBox"]["height"]
+													width = element["absoluteBoundingBox"]["width"]
+
+													corners = element["cornerRadius"]
+
+													abc.toogles.append("nome=" + str(name) + "-" + "color=" + str(color) + "-" + "stroke=" + str(strokeColor) + "-" + "height=" + str(height) + "-" + "width=" + str(width) + "-" + "corners=" + str(corners))
+
+													print("itens do toogles" + str(color) +"\n" + str(strokeColor) + "\n" + str(height) + "\n" + str(width) + "\n" + str(corners))
+	
+					if groupName.lower() == "slider-group":
+						print("entrou no sliders")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+
+												name = subgroup4["name"].replace("-", "_")
+
+												if element["name"].lower() == "ellipse":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorProgress = '#%02x%02x%02x' % ( r, g, b)
+
+												if element["type"].lower() == "rectangle" and element["name"].lower() == "backgroundprogress" and element["type"].lower() != "text":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorBackground = '#%02x%02x%02x' % ( r, g, b)
+
+												
+												item_list = "backgroundProgress=" + str(colorBackground) + "-" + "colorProgress=" + str(colorProgress) + "-" + "name=" +str(name)
+										
+												if str(item_list) in abc.sliders:
+													print("")
+												else:
+													abc.sliders.append(str(item_list))							
+
+					if groupName.lower() == "progressbar-group":
+						print("entrou no progressbar")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for group in subgroup:
+								if "children" in group:
+									subgroup2 = group["children"]
+									for element in subgroup2:
+
+										list_itens = abc.progressbar
+									
+										token_component = group["name"].lower().replace("-","_")
+
+										if element["type"].lower() == "rectangle" and element["name"].lower() == "progress":
+
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											colorProgress = '#%02x%02x%02x' % ( r, g, b)
+
+										if element["type"].lower() == "rectangle" and element["name"].lower() == "background_progress":
+
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											colorBackgroundProgress = '#%02x%02x%02x' % ( r, g, b)	
+										
+										item_list = "nome=" + str(token_component) + "-" + "colorProgress=" + str(colorProgress) + "-" + "colorBackgroundProgress=" + str(colorBackgroundProgress)
+										
+										if str(item_list) in abc.progressbar:
+											print("")
+										else:
+											abc.progressbar.append(str(item_list))
+								
+					if groupName.lower() == "search-group":
+						print("entrou no search")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for group in subgroup:
+								if "children" in group:
+									subgroup2 = group["children"]
+									for element in subgroup2:
+
+										name = "seach_style"
+
+										if element["type"].lower() == "vector" and element["name"].lower() == "search bg" and element["type"].lower() != "text":
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											backgroundColor = '#%02x%02x%02x' % ( r, g, b)
+
+											if "cornerRadius" in element:
+												corners = element["cornerRadius"]
+
+											print(str(backgroundColor))
+
+										if "strokes" in element and len(element["strokes"]) > 0:
+
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											strokeColor = '#%02x%02x%02x' % ( r, g, b)
+
+											print(str(strokeColor))
+
+										if "children" in element:
+											frameIcon = element["children"]
+											for icon in frameIcon:
+												color = icon["fills"][0]["color"]
+												r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+												g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+												b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+												iconColor = '#%02x%02x%02x' % ( r, g, b)
+										
+										item_list = "name=" + str(name) + "-" + "backgroundColor=" + str(backgroundColor) + "-" + "iconColor=" + str(iconColor) + "-" + "corners=" + str(corners)
+										
+										if str(item_list) in abc.search:
+											print("")
+										else:
+											abc.search.append(str(item_list))
+
+					if groupName.lower() == "tooltip-group":
+						print("entrou no tooltips")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for group in subgroup:
+								if "children" in group:
+									subgroup2 = group["children"]
+									for element in subgroup2:
+										if element["type"].lower() == "vector" and element["type"].lower() != "text":
+
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											backgroundColor = '#%02x%02x%02x' % ( r, g, b)
+
+											if "cornerRadius" in element:
+												corners = element["cornerRadius"]
+
+											item_list = "name=" + "tooltipStyle" + "-" + "backgroundColor=" + str(backgroundColor) + "-" + "cornerRadius=" + str(corners)
+										
+											if str(item_list) in abc.tooltips:
+												print("")
+											else:
+												abc.tooltips.append(str(item_list))
+
+					if groupName.lower() == "chips-group":
+						print("entrou no chips")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for group in subgroup:
+								if "children" in group:
+									subgroup2 = group["children"]
+									for element in subgroup2:
+
+										if element["type"].lower() == "rectangle" and element["type"].lower() != "text" and element["name"].lower() == "chip-bg":
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											backgroundColor = '#%02x%02x%02x' % ( r, g, b)
+
+										if element["type"].lower() == "vector" and element["type"].lower() != "text" and element["name"].lower() == "subtract":
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											closeIconColor = '#%02x%02x%02x' % ( r, g, b)
+
+										item_list = "backgroundColor=" + str(backgroundColor) + "-" + "closeIconColor=" + str(closeIconColor)
+										
+										if str(item_list) in abc.chips:
+											print("")
+										else:
+											abc.chips.append(str(item_list))
+										
+										print("corBakcground= " + str(backgroundColor) + "\n" + "corCloseIcon= " + str(closeIconColor))
+
+					if groupName.lower() == "textarea-group":
+						print("entrou no textarea")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for group in subgroup:
+								if "children" in group:
+									subgroup2 = group["children"]
+									for element in subgroup2:
+										if element["type"].lower() == "rectangle" and element["type"].lower() != "text":
+
+											name = group["name"]
+
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											backgroundColor = '#%02x%02x%02x' % ( r, g, b)
+
+											if "cornerRadius" in element:
+												corners = element["cornerRadius"]
+
+											item_list = "name=" + name + "-" + "backgroundColor=" + str(backgroundColor) + "-" + "cornerRadius=" + str(corners)
+										
+											if str(item_list) in abc.textArea:
+												print("")
+											else:
+												abc.textArea.append(str(item_list))
+
+					if groupName.lower() == "overflow-menu-group":
+						print("entrou no overflow")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+
+												name = subgroup4["name"].replace("-", "_")
+
+												if subgroup4["name"].lower() == "overflow-menu" and element["type"].lower() == "rectangle" and element["name"].lower() == "background-overflow":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorBackground = '#%02x%02x%02x' % ( r, g, b)
+
+													if "cornerRadius" in element:
+														corners = element["cornerRadius"]
+												
+												if subgroup4["name"].lower() == "overflow-menu" and element["type"].lower() == "rectangle" and element["name"].lower() == "selected-item":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														selectedItemColor = '#%02x%02x%02x' % ( r, g, b)
+												
+												if subgroup4["name"].lower() == "overflow-menu" and element["type"].lower() == "vector" and element["name"].lower() == "vector-selected":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														selectedIconColor = '#%02x%02x%02x' % ( r, g, b)
+													
+												
+												item_list = "colorBackground=" + str(colorBackground) + "-" + "selectedItemColor=" + str(selectedItemColor) + "-" + "selectedIconColor=" +str(selectedIconColor) + "-" + "corners=" + str(corners) + "-" + "name=" + str(name)
+										
+												if str(item_list) in abc.overflowMenu:
+													print("")
+												else:
+													abc.overflowMenu.append(str(item_list))							
+
+					if groupName.lower() == "navigationbar-group":
+						print("entrou no navigation-bar")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+
+												name = subgroup4["name"].replace("-", "_")
+
+												if subgroup4["name"].lower() == "appheader" and element["type"].lower() == "rectangle" and element["name"].lower() == "toolbar":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorToolbar = '#%02x%02x%02x' % ( r, g, b)
+
+												
+												if subgroup4["name"].lower() == "status-bar" and element["type"].lower() == "rectangle" and element["name"].lower() == "statusbar":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorStatusBar = '#%02x%02x%02x' % ( r, g, b)
+												
+												if subgroup4["name"].lower() == "appheader" and element["type"].lower() == "text":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														titlleColor = '#%02x%02x%02x' % ( r, g, b)
+												
+												item_list = "colorToolbar=" + str(colorToolbar) + "-" + "colorStatusBar=" + str(colorStatusBar) + "-" + "titlleColor=" +str(titlleColor) + "-"  + "name=" + str(name)
+										
+												if str(item_list) in abc.navigationBar:
+													print("")
+												else:
+													abc.navigationBar.append(str(item_list))							
+
+					if groupName.lower() == "datepicker-group":
+						print("entrou no datepicker")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+
+												name = subgroup4["name"].replace("-", "_")
+
+												if element["type"].lower() == "vector" and element["name"].lower() == "datepicker-icon":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorDatePicker = '#%02x%02x%02x' % ( r, g, b)
+												
+												item_list = "colorDatePicker=" + str(colorDatePicker)
+												print(str(item_list))
+										
+												if str(item_list) in abc.datePicker:
+													print("")
+												else:
+													abc.datePicker.append(str(item_list))	
+					
+					if groupName.lower() == "timepicker-group":
+						print("entrou no timepicker")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+
+												name = subgroup4["name"].replace("-", "_")
+
+												if element["type"].lower() == "vector" and element["name"].lower() == "vector":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorTimePicker = '#%02x%02x%02x' % ( r, g, b)
+												
+												item_list = "colorTimePicker=" + str(colorTimePicker)
+												print(str(item_list))
+										
+												if str(item_list) in abc.timePicker:
+													print("")
+												else:
+													abc.timePicker.append(str(item_list))	
+					
+					if groupName.lower() == "select":
+						print("entrou no select")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for subgroup2 in subgroup:
+								if "children" in subgroup2:
+									subgroup3 = subgroup2["children"]
+									for subgroup4 in subgroup3:
+										if "children" in subgroup4:
+											subgroup5 = subgroup4["children"]
+											for element in subgroup5:
+
+												name = subgroup4["name"].replace("-", "_")
+
+												if element["name"].lower() == "divider":
+													if "strokes" in element and len(element["strokes"])>0:
+														color = element["strokes"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorDivider = '#%02x%02x%02x' % ( r, g, b)
+												
+												if element["name"].lower() == "listoptions":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorListOptions = '#%02x%02x%02x' % ( r, g, b)
+
+												if element["name"].lower() == "selectbackground":
+													if "fills" in element and len(element["fills"])>0:
+														color = element["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														colorSelectBackground = '#%02x%02x%02x' % ( r, g, b)
+
+														if "cornerRadius" in element:
+															corners = element["cornerRadius"]
+													
+												if "children" in element:
+													frameIcon = element["children"]
+													for icon in frameIcon:
+														color = icon["fills"][0]["color"]
+														r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+														g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+														b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+														iconColor = '#%02x%02x%02x' % ( r, g, b)
+												
+												if colorDivider.lower() != "" and colorListOptions.lower() != "" and colorSelectBackground != "" and iconColor != "":
+													item_list = "colorDivider=" + str(colorDivider) + "-" + "colorListOptions=" + str(colorListOptions) + "-" + "colorSelectBackground=" + str(colorSelectBackground) + "-" + "iconColor=" + str(iconColor) + "-" + "corners=" + str(corners)
+													print(str(item_list))
+											
+													if str(item_list) in abc.dropDown:
+														print("")
+													else:
+														abc.dropDown.append(str(item_list))	
+
+					if groupName.lower() == "cards-group":
+						print("entrou no cards")
+						if "children" in group_component:
+							subgroup = group_component["children"]
+							for group in subgroup:
+								if "children" in group:
+									subgroup2 = group["children"]
+									for element in subgroup2:
+										if element["type"].lower() == "rectangle" and element["type"].lower() != "text":
+
+											color = element["fills"][0]["color"]
+											r =  255 if color["r"] >= 1.0  else 0 if color["r"] <= 0.0 else round(color["r"] * 255.0)
+											g =  255 if color["g"] >= 1.0  else 0 if color["g"] <= 0.0 else round(color["g"] * 255.0)
+											b =  255 if color["b"] >= 1.0  else 0 if color["b"] <= 0.0 else round(color["b"] * 255.0)
+											backgroundColor = '#%02x%02x%02x' % ( r, g, b)
+
+											if "cornerRadius" in element:
+												corners = element["cornerRadius"]
+
+											item_list = "name=" + "cardbackground" + "-" + "backgroundColor=" + str(backgroundColor) + "-" + "cornerRadius=" + str(corners)
+										
+											print("card=  " + str(item_list))
+											if str(item_list) in abc.cards:
+												print("")
+											else:
+												abc.cards.append(str(item_list))
+		
+					
+	def _detectComponents(abc,frame):
+		return
 		objFontFamily = "Roboto"
 		objFontSize = "12"
 		corDaFonte = "#0000"
 		colorStroke = "#00212429"
 		colorFill = "#00212429"
-		if frame["name"].lower() == "componentes":
+		if frame["name"].lower() == "componentes-flavio":
 			
 			for component in frame["children"]:
 				if "children" in component:
 					child = component["children"]
 					
-					for obj in child:
+					for obj in child["children"]:
 
 						if obj["type"].lower() == "frame":
 							frame = obj["name"]
@@ -810,7 +1952,6 @@ class ParseDS:
 										colorFill = "#00212429"
 
 
-						
 						if obj["type"].lower() == "text":
 							objFontFamily = obj["style"]["fontFamily"]
 							objFontSize = obj["style"]["fontSize"]
@@ -928,6 +2069,15 @@ class ParseDS:
 
 								for group3 in group2["children"]:
 
+									if "fills" in group3:
+										if len(group3["fills"]) > 0:
+											fills = group3["fills"][0]["color"]
+											r =  255 if fills["r"] >= 1.0  else 0 if fills["r"] <= 0.0 else round(fills["r"] * 255.0)
+											g =  255 if fills["g"] >= 1.0  else 0 if fills["g"] <= 0.0 else round(fills["g"] * 255.0)
+											b =  255 if fills["b"] >= 1.0  else 0 if fills["b"] <= 0.0 else round(fills["b"] * 255.0)
+											rgb = '#%02x%02x%02x' % ( r, g, b)
+											abc.colors.append(group3["name"] + " = " + rgb.upper())
+
 									if "children" in group3:
 
 										for group4 in group3["children"]:
@@ -954,8 +2104,7 @@ class ParseDS:
 																g =  255 if fills["g"] >= 1.0  else 0 if fills["g"] <= 0.0 else round(fills["g"] * 255.0)
 																b =  255 if fills["b"] >= 1.0  else 0 if fills["b"] <= 0.0 else round(fills["b"] * 255.0)
 																rgb = '#%02x%02x%02x' % ( r, g, b)
-																abc.colors.append(color["name"] + " = " + rgb.upper())
-			
+																abc.colors.append(color["name"] + " = " + rgb.upper())		
 
 	def detectFontFamily(abc,frame):
 		nomeDaFonte = ""
@@ -1079,25 +2228,26 @@ class ParseDS:
 							
 
 	def detectShadow(abc,frame):
-		if frame["name"].lower() == "shadow":
-			for group in frame["children"]:
-				if group["type"].lower() == "group":
-					for obj in group["children"]:
-						if obj["type"].lower() == "rectangle":
-							
-							for item in obj["effects"]:
+		if frame["name"].lower() == "camadas":
+			for frame2 in frame["children"]:
+				if "children" in frame2:
+					for group in frame2["children"]:
+						if group["type"].lower() == "group":
+							if "children" in group:
+								for obj in group["children"]:
+									if obj["type"].lower() == "rectangle":
+										for item in obj["effects"]:
+											if item["type"].lower() == "drop_shadow":
+												blur = str(item["radius"])
+												x = str(item["offset"]["x"])
+												y = str(item["offset"]["y"])
+												r = item["color"]["r"]
+												g = item["color"]["g"]
+												b = item["color"]["b"]
+												a = item["color"]["a"]
 
-								if item["type"].lower() == "drop_shadow":
-									blur = str(item["radius"])
-									x = str(item["offset"]["x"])
-									y = str(item["offset"]["y"])
-									r = item["color"]["r"]
-									g = item["color"]["g"]
-									b = item["color"]["b"]
-									a = item["color"]["a"]
-
-									rgba = "rgba(" + str(r) + "," + str(g) + "," + str(b) + "," + str(a) + ")"
-									abc.shadows.append("Shadow." + obj["name"] + " =  Blur: " + blur + ", x: " + x + ", y: " + y + ", color: " + str(rgba))
+												rgba = "rgba(" + str(r) + "," + str(g) + "," + str(b) + "," + str(a) + ")"
+												abc.shadowsAndroid.append(obj["name"] + " = " + blur.split(".")[0] + "px")
 	
 	#dimensões
 
@@ -1159,8 +2309,8 @@ class ParseDS:
 	def getBorderRadius(abc):
 		return abc.borderRadius
 
-	def getShadow(abc):
-		return abc.shadows
+	def getShadowAndroid(abc):
+		return abc.shadowsAndroid
 
 	def getFontFamilies(abc):
 		return abc.fontFamilies
@@ -1209,6 +2359,57 @@ class ParseDS:
 
 	def getGradientColors(abc):
 		return abc.gradientColors
+	
+	def getButtons(abc):
+		return abc.buttons
+
+	def getCheckBoxes(abc):
+		return abc.checkBoxes
+
+	def getAutocompletes(abc):
+		return abc.autocompletes
+
+	def getRadioButtons(abc):
+		return abc.radioButtons
+
+	def getToogles(abc):
+		return abc.toogles
+
+	def getSliders(abc):
+		return abc.sliders
+
+	def getProgressBar(abc):
+		return abc.progressbar
+	
+	def getSearch(abc):
+		return abc.search
+	
+	def getTooltips(abc):
+		return abc.tooltips
+	
+	def getChips(abc):
+		return abc.chips
+	
+	def getTextArea(abc):
+		return abc.textArea
+	
+	def getOverflowMenu(abc):
+		return abc.overflowMenu
+
+	def getNavigationBar(abc):
+		return abc.navigationBar
+	
+	def getDatePicker(abc):
+		return abc.datePicker
+
+	def getTimePicker(abc):
+		return abc.timePicker
+	
+	def getDropDown(abc):
+		return abc.dropDown
+	
+	def getCards(abc):
+		return abc.cards
 
 
 figmaId = "SZNeL3NI0iQRX51kmwKwrp"

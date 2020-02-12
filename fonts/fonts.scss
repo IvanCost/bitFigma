@@ -248,6 +248,32 @@
 @font_face {
   font-family: Roboto
   src: url(path_da_font);
+  font-weight:700;
+}
+
+.body_02{
+  font-family: Roboto
+  font-weight:700;
+  font-size:14px;
+  line-height:21px;
+}
+
+@font_face {
+  font-family: Roboto
+  src: url(path_da_font);
+  font-weight:400;
+}
+
+.Short Paragraphs Bold{
+  font-family: Roboto
+  font-weight:400;
+  font-size:14px;
+  line-height:16px;
+}
+
+@font_face {
+  font-family: Roboto
+  src: url(path_da_font);
   font-weight:400;
 }
 

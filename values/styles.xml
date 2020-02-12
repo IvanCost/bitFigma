@@ -1,277 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources> 
+<resources xmlns:tools="http://schemas.android.com/tools"> 
 
-<style name = "button_secondary_default">
-<item name = "android:background">@drawable/button_secondary_default</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#ffffff</item>
+<style name = "NormalCheckbox">
+<item name = "android:colorControlNormal" tools:targetApi="lollipop">#FFF</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#d1d4d5</item>
+<item name = "android:textSize" tools:targetApi="lollipop">dp</item>
+<item name = "android:fontFamily" tools:targetApi="lollipop"></item>
 </style>
 
-<style name = "button_secondary_disabled">
-<item name = "android:background">@drawable/button_secondary_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#ffffff</item>
+<style name = "DisabledCheckbox">
+<item name = "android:colorControlNormal" tools:targetApi="lollipop">#FFF</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#eff0f0</item>
+<item name = "android:textSize" tools:targetApi="lollipop">14dp</item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "button_primary_default">
-<item name = "android:background">@drawable/button_primary_default</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#ffffff</item>
+<style name = "CheckedCheckbox">
+<item name = "android:colorControlNormal" tools:targetApi="lollipop">#FFF</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:textSize" tools:targetApi="lollipop">14dp</item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "button_primary_disabled">
-<item name = "android:background">@drawable/button_primary_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#ffffff</item>
+<style name = "SelectedRadio">
+<item name = "android:colorControlNormal" tools:targetApi="lollipop">#FFFF</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#d1d4d5</item>
+<item name = "android:textColorPrimaryDisableOnly" tools:targetApi="lollipop">#d1d4d5</item>
+<item name = "android:textColor" tools:targetApi="lollipop">#d1d4d5</item>
+<item name = "android:buttonTint" tools:targetApi="lollipop"></item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "button_alternate_default">
-<item name = "android:background">@drawable/button_alternate_default</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "SelectedRadio">
+<item name = "android:colorControlNormal" tools:targetApi="lollipop">#FFFF</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:textColorPrimaryDisableOnly" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:textColor" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:buttonTint" tools:targetApi="lollipop"></item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "button_secondary_hover">
-<item name = "android:background">@drawable/button_secondary_hover</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#ffffff</item>
+<style name = "slider_normal">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop"></item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop"></item>
 </style>
 
-<style name = "button_primary_hover">
-<item name = "android:background">@drawable/button_primary_hover</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#ffffff</item>
+<style name = "slider_normal">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
 </style>
 
-<style name = "button_alternate_hover">
-<item name = "android:background">@drawable/button_alternate_hover</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "slider_disabled">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
 </style>
 
-<style name = "button_alternate_disabled">
-<item name = "android:background">@drawable/button_alternate_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "slider_disabled">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#eeeeee</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#eeeeee</item>
 </style>
 
-<style name = "button_alternate_disabled">
-<item name = "android:background">@drawable/button_alternate_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">21dp</item>
-<item name = "android:textColor">#dde2e5</item>
+<style name = "slider_slided">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#eeeeee</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#eeeeee</item>
 </style>
 
-<style name = "button_alternate_disabled">
-<item name = "android:background">@drawable/button_alternate_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">21dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "slider_slided">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
 </style>
 
-<style name = "button_alternate_disabled">
-<item name = "android:background">@drawable/button_alternate_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">21dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "slider_onclick">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
 </style>
 
-<style name = "button_alternate_disabled">
-<item name = "android:background">@drawable/button_alternate_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">21dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "slider_showvalue">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
 </style>
 
-<style name = "button_alternate_disabled">
-<item name = "android:background">@drawable/button_alternate_disabled</item>
-<item name = "android:layout_height">48dp</item>
-<item name = "android:layout_width">182dp</item>
-<item name = "android:radius">8dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">21dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "sliders_text">
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:colorControlActivated" tools:targetApi="lollipop">#009cb4</item>
 </style>
 
-<style name = "checkbox_disabled">
-<item name = "android:background">@drawable/checkbox_disabled</item>
-<item name = "android:layout_height">28dp</item>
-<item name = "android:layout_width">28dp</item>
-<item name = "android:radius">4dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#dde2e5</item>
+<style name = "progress_barloading" parent="Widget.AppCompat.ProgressBar.Horizontal">
+<item name = "android:progressTint" tools:targetApi="lollipop"></item>
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "toggle_on">
-<item name = "android:background">@drawable/toggle_on</item>
-<item name = "android:layout_height">24dp</item>
-<item name = "android:layout_width">24dp</item>
-<item name = "android:radius">16dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "progress_barloading" parent="Widget.AppCompat.ProgressBar.Horizontal">
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "toggle_disabled">
-<item name = "android:background">@drawable/toggle_disabled</item>
-<item name = "android:layout_height">24dp</item>
-<item name = "android:layout_width">24dp</item>
-<item name = "android:radius">16dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "progressbar_waiting" parent="Widget.AppCompat.ProgressBar.Horizontal">
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "toggle_off">
-<item name = "android:background">@drawable/toggle_off</item>
-<item name = "android:layout_height">24dp</item>
-<item name = "android:layout_width">24dp</item>
-<item name = "android:radius">16dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
+<style name = "progressbar_percentage" parent="Widget.AppCompat.ProgressBar.Horizontal">
+<item name = "android:progressTint" tools:targetApi="lollipop">#009cb4</item>
+<item name = "android:progressBackgroundTint" tools:targetApi="lollipop">#f4f4f5</item>
+<item name = "android:fontFamily" tools:targetApi="lollipop">Roboto</item>
 </style>
 
-<style name = "tooltip">
-<item name = "android:background">@drawable/tooltip</item>
-<item name = "android:layout_height">45dp</item>
-<item name = "android:layout_width">129dp</item>
-<item name = "android:radius">10dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#dde2e5</item>
-</style>
-
-<style name = "tag_primary">
-<item name = "android:background">@drawable/tag_primary</item>
-<item name = "android:layout_height">32dp</item>
-<item name = "android:layout_width">81dp</item>
-<item name = "android:radius">200dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">12dp</item>
-<item name = "android:textColor">#212429</item>
-</style>
-
-<style name = "tag_secondary">
-<item name = "android:background">@drawable/tag_secondary</item>
-<item name = "android:layout_height">32dp</item>
-<item name = "android:layout_width">94dp</item>
-<item name = "android:radius">200dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">12dp</item>
-<item name = "android:textColor">#ffffff</item>
-</style>
-
-<style name = "tag_tertiary">
-<item name = "android:background">@drawable/tag_tertiary</item>
-<item name = "android:layout_height">32dp</item>
-<item name = "android:layout_width">100dp</item>
-<item name = "android:radius">200dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">12dp</item>
-<item name = "android:textColor">#ffffff</item>
-</style>
-
-<style name = "tag_tertiary">
-<item name = "android:background">@drawable/tag_tertiary</item>
-<item name = "android:layout_height">32dp</item>
-<item name = "android:layout_width">100dp</item>
-<item name = "android:radius">200dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">12dp</item>
-<item name = "android:textColor">#ffffff</item>
-</style>
-
-<style name = "tag_alternate">
-<item name = "android:background">@drawable/tag_alternate</item>
-<item name = "android:layout_height">32dp</item>
-<item name = "android:layout_width">107dp</item>
-<item name = "android:radius">200dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">12dp</item>
-<item name = "android:textColor">#4263eb</item>
-</style>
-
-<style name = "checkbox_checked">
-<item name = "android:background">@drawable/checkbox_checked</item>
-<item name = "android:layout_height">28dp</item>
-<item name = "android:layout_width">28dp</item>
-<item name = "android:radius">4dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
-</style>
-
-<style name = "checkbox_default">
-<item name = "android:background">@drawable/checkbox_default</item>
-<item name = "android:layout_height">28dp</item>
-<item name = "android:layout_width">28dp</item>
-<item name = "android:radius">4dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
-</style>
-
-<style name = "checkbox_default">
-<item name = "android:background">@drawable/checkbox_default</item>
-<item name = "android:layout_height">28dp</item>
-<item name = "android:layout_width">28dp</item>
-<item name = "android:radius">4dp</item>
-<item name = "android:fontFamily">Roboto</item>
-<item name = "android:textSize">16dp</item>
-<item name = "android:textColor">#495057</item>
-</style>
-
-
-
-</resources>
